@@ -1,0 +1,11 @@
+*.o
+*.c
+*.3pcap
+*.h
+*.a
+*.so*
+*.log
+*.status
+Makefile
+net
+pcap-*

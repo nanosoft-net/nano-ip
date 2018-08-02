@@ -1,0 +1,165 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make demo_socket STM32F767 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "all+",
+                "TARGET=arm-gcc-os-less-stm32f767"
+            ],
+            "group": "build",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):([0-9]+):([0-9]+): (warning|error): (.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean demo_socket STM32F767 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "clean+",
+                "TARGET=arm-gcc-os-less-stm32f767"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "make demo_socket LPC43S37 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "all+",
+                "TARGET=arm-gcc-os-less-lpc43s37"
+            ],
+            "group": "build",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):([0-9]+):([0-9]+): (warning|error): (.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean demo_socket LPC43S37 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "clean+",
+                "TARGET=arm-gcc-os-less-lpc43s37"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "make demo_socket LPC1788 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "all+",
+                "TARGET=arm-gcc-os-less-lpc1788"
+            ],
+            "group": "build",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):([0-9]+):([0-9]+): (warning|error): (.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean demo_socket LPC1788 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "clean+",
+                "TARGET=arm-gcc-os-less-lpc1788"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "make demo Windows",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "all+"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean demo Windows",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo_socket",
+                "clean+"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}

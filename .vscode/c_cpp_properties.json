@@ -1,0 +1,85 @@
+{
+    "configurations": [
+        {
+            "name": "STM32F7",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/apps",
+                "${workspaceFolder}/src/apps/demo_ping",
+                "${workspaceFolder}/src/bsps",
+                "${workspaceFolder}/src/bsps/bsp_stm32f767",
+                "${workspaceFolder}/src/libs",
+                "${workspaceFolder}/src/libs/nanoip",
+                "${workspaceFolder}/src/libs/nanoip/config",
+                "${workspaceFolder}/src/libs/nanoip/core",
+                "${workspaceFolder}/src/libs/nanoip/modules",
+                "${workspaceFolder}/src/libs/nanoip/modules/dhcp",
+                "${workspaceFolder}/src/libs/nanoip/modules/tftp",
+                "${workspaceFolder}/src/libs/nanoip/modules/socket",
+                "${workspaceFolder}/src/libs/nanoip/netif",
+                "${workspaceFolder}/src/libs/nanoip/netif/phy",
+                "${workspaceFolder}/src/libs/nanoip/oal",
+                "${workspaceFolder}/src/libs/nanoip/oal/os_less",
+                "${workspaceFolder}/src/libs/nanoip/packet",
+                "${workspaceFolder}/src/libs/nanoip/tools",
+                "${workspaceFolder}/src/libs/nanoip/log",
+                "${workspaceFolder}/src/libs/nanoip/hal",
+                "${workspaceFolder}/src/libs/net_if/stm32_emac_netif",
+
+                "C:\\gcc_arm_cortex_m_7.2\\arm-none-eabi\\include"
+            ],
+            "defines": [
+            ],
+            "compilerPath": "C:\\gcc_arm_cortex_m_7.2\\bin\\arm-none-eabi-gcc.exe",
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/apps",
+                "${workspaceFolder}/src/apps/demo_ping",
+                "${workspaceFolder}/src/bsps",
+                "${workspaceFolder}/src/bsps/bsp_windows",
+                "${workspaceFolder}/src/libs",
+                "${workspaceFolder}/src/libs/nanoip",
+                "${workspaceFolder}/src/libs/nanoip/config",
+                "${workspaceFolder}/src/libs/nanoip/core",
+                "${workspaceFolder}/src/libs/nanoip/modules",
+                "${workspaceFolder}/src/libs/nanoip/modules/dhcp",
+                "${workspaceFolder}/src/libs/nanoip/modules/tftp",
+                "${workspaceFolder}/src/libs/nanoip/modules/socket",
+                "${workspaceFolder}/src/libs/nanoip/netif",
+                "${workspaceFolder}/src/libs/nanoip/oal",
+                "${workspaceFolder}/src/libs/nanoip/oal/windows",
+                "${workspaceFolder}/src/libs/nanoip/packet",
+                "${workspaceFolder}/src/libs/nanoip/tools",
+                "${workspaceFolder}/src/libs/nanoip/log",
+                "${workspaceFolder}/src/libs/net_if/pcap_netif",
+                "${workspaceFolder}/3rdparty/winpcap-4.1.2/Include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\mingw32\\bin\\i686-w64-mingw32-gcc.exe",
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}

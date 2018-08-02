@@ -1,0 +1,7 @@
+.vs
+**/Debug
+**/lib
+**/bin
+**/obj
+*.opendb
+*.sdf

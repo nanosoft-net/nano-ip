@@ -1,0 +1,53 @@
+####################################################################################################
+# \file arm-keil-ucos-ii.target
+# \brief µC/OSII with ARM Keil target definition
+# \author C. Jimenez
+# \copyright Copyright(c) 2017 Cedric Jimenez
+#
+# This file is part of Nano-IP.
+#
+# Nano-IP is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Nano-IP is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
+####################################################################################################
+
+# Include toolchain
+include $(ROOT_DIR)/build/make/compilers/arm-keil.compiler
+
+# Target operating system
+TARGET_OS=uCOS-II
+
+# Target CPU
+TARGET_CPU=Cortex-M3
+
+# Target specific include directories
+TARGET_INC_DIRS=
+
+# Target specific lib directories
+TARGET_LIB_DIRS=
+
+# Target specific libraries
+TARGET_LIBS=
+
+# Target implementation for the project defines
+TARGET_PROJECT_DEFINES=$(foreach PROJECT_DEFINE, $(PROJECT_DEFINES), -D $(PROJECT_DEFINE))
+
+# Optimisation level
+OPTIMIZATION_LEVEL = -O0
+
+# Toolchain flags
+CFLAGS = $(OPTIMIZATION_LEVEL) $(PROJECT_CFLAGS) $(TARGET_PROJECT_DEFINES) --c99 -g -c --cpu $(TARGET_CPU) --littleend --apcs=interwork --split_sections
+CXXFLAGS = 
+ASFLAGS = $(PROJECT_ASFLAGS) $(TARGET_PROJECT_DEFINES) -g --cpu $(TARGET_CPU) --littleend --apcs=interwork --cpreproc
+LDFLAGS = --cpu $(TARGET_CPU) --strict --littleend --map --list=$(patsubst %$(COMP_EXE_EXTENSION),%.map, $@) --scatter $(ROOT_DIR)/src/bsp/include/utv_lpc.sct $(PROJECT_LDFLAGS)
+ARFLAGS = -c -r $(PROJECT_ARFLAGS)
+

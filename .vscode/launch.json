@@ -1,0 +1,66 @@
+{
+    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+    // Pointez pour afficher la description des attributs existants.
+    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/apps/demo_socket/bin/arm-gcc-os-less-stm32f767/demo_socket.elf",
+            "name": "J-Link Debug STM32F767",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "STM32F767ZI",
+            "interface": "swd",
+            "ipAddress": null,
+            "serialNumber": null,
+            "svdFile": "${workspaceRoot}/src/bsps/bsp_stm32f767/STM32F7x7.svd"
+        },
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/apps/demo_socket/bin/arm-gcc-os-less-lpc43s37/demo_socket.elf",
+            "name": "J-Link Debug LPC43S37",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "LPC43S37_M4",
+            "interface": "jtag",
+            "ipAddress": null,
+            "serialNumber": null,
+            "svdFile": "${workspaceRoot}/src/bsps/bsp_lpc43s37/LPC43xx_43Sxx.svd"
+        },
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/apps/demo_socket/bin/arm-gcc-os-less-lpc1788/demo_socket.elf",
+            "name": "J-Link Debug LPC1788",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "LPC1788",
+            "interface": "swd",
+            "ipAddress": null,
+            "serialNumber": null
+        },
+        {
+            "name": "MinGW Windows",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/apps/demo_socket/bin/mingw-windows/demo_socket.elf",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "c:/mingw32/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

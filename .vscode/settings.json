@@ -1,0 +1,23 @@
+{
+    "cortex-debug.JLinkGDBServerPath": "C:\\Program Files (x86)\\SEGGER\\JLink_V632c\\JLinkGDBServerCL.exe",
+    "cortex-debug.armToolchainPath": "C:\\gcc_arm_cortex_m_7.2\\bin",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/oal/linux" : true,
+        "**/oal/os_less" : true,
+        "**/oal/windows" : false
+    },
+    "files.associations": {
+        "stdio.h": "c",
+        "nano_ip_big_small_packet_allocator.h": "c",
+        "nano_ip_tools.h": "c",
+        "stm32f767xx.h": "c",
+        "nano_ip.h": "c",
+        "array": "c",
+        "string_view": "c"
+    }
+}
