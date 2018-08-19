@@ -100,7 +100,7 @@ _start:
 _vectors:
 
     /* Cortex M4 internal interrupts */
-	#include "cm4_internal_interrupts.s.inc"
+	.include "cm4_internal_interrupts.s.inc"
 
     /* External Interrupts */
 	.long   DAC_Handler

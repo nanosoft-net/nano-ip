@@ -73,7 +73,7 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #define NANO_IP_LOCALHOST_TASK_PRIORITY         3u
 
 /** \brief Size in bytes of the localhost interface task */
-#define NANO_IP_LOCALHOST_TASK_STACK_SIZE       512u
+#define NANO_IP_LOCALHOST_TASK_STACK_SIZE       640u
 
 
 

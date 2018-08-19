@@ -65,6 +65,10 @@ nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name
             task_init_data.task_func = NANO_IP_CAST(fp_nano_os_task_func_t, task_func);
             task_init_data.param = param;
 
+            #if (NANO_OS_PORT_CONTAINS_TASK_DATA == 1u)
+            task_init_data.port_init_data.is_priviledged = true;
+            #endif /* NANO_OS_PORT_CONTAINS_TASK_DATA */
+
             /* Create task */
             os_err = NANO_OS_TASK_Create(task, &task_init_data);
             if (os_err == NOS_ERR_SUCCESS)
@@ -84,5 +88,22 @@ nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name
         }
     }
 
+    return ret;
+}
+
+/** \brief Put the current task into sleep for a given amount of milliseconds */
+nano_ip_error_t NANO_IP_OAL_TASK_Sleep(const uint32_t timeout)
+{
+    nano_ip_error_t ret;
+    const uint32_t os_timeout = (timeout == NANO_IP_MAX_TIMEOUT_VALUE) ? NANO_IP_MAX_TIMEOUT_VALUE : NANO_OS_MS_TO_TICKS(timeout);
+    const nano_os_error_t os_err = NANO_OS_TASK_Sleep(os_timeout);
+    if (os_err == NOS_ERR_SUCCESS)
+    {
+        ret = NIP_ERR_SUCCESS;
+    }
+    else
+    {
+        ret = NIP_ERR_FAILURE;
+    }
     return ret;
 }

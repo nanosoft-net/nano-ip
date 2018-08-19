@@ -56,7 +56,7 @@ nano_ip_error_t NANO_IP_OAL_TIMER_Create(oal_timer_t* const timer, const fp_time
         /* Create timer task */
         if (!s_timer_task_created)
         {
-            ret = NANO_IP_OAL_TASK_Create(&s_timer_task, "TIMER task", NANO_IP_OAL_TIMER_OS_LESS_Task, NULL);
+            ret = NANO_IP_OAL_TASK_Create(&s_timer_task, "TIMER task", NANO_IP_OAL_TIMER_OS_LESS_Task, NULL, 0u, 0u);
             if (ret == NIP_ERR_SUCCESS)
             {
                 s_timer_task_created = true;

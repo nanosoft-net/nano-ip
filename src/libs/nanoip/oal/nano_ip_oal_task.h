@@ -36,6 +36,9 @@ nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name
                                         const uint8_t priority, const uint32_t stack_size);
 
 
+/** \brief Put the current task into sleep for a given amount of milliseconds */
+nano_ip_error_t NANO_IP_OAL_TASK_Sleep(const uint32_t timeout);
+
 /** \brief Execute the registered tasks */
 void NANO_IP_OAL_TASK_Execute(void);
 

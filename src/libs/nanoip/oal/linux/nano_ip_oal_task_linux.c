@@ -19,6 +19,8 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nano_ip_oal_task.h"
 
+#include <unistd.h>
+
 /** \brief Create a task */
 nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, 
                                         void (*task_func)(void*), void* const param, 
@@ -43,4 +45,11 @@ nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name
     }
 
     return ret;
+}
+
+/** \brief Put the current task into sleep for a given amount of milliseconds */
+nano_ip_error_t NANO_IP_OAL_TASK_Sleep(const uint32_t timeout)
+{
+    (void)usleep(timeout * 1000u);
+    return NIP_ERR_SUCCESS;
 }

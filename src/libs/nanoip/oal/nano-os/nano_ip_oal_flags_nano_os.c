@@ -124,7 +124,8 @@ nano_ip_error_t NANO_IP_OAL_FLAGS_Wait(oal_flags_t* const flags, uint32_t* const
     /* Check parameters */
     if ((flags != NULL) && (flag_mask != NULL))
     {
-        const nano_os_error_t os_err = NANO_OS_FLAG_SET_Wait(flags, *flag_mask, true, reset_flags, flag_mask, NANO_OS_MS_TO_TICKS(timeout));
+        const uint32_t os_timeout = (timeout == NANO_IP_MAX_TIMEOUT_VALUE) ? NANO_IP_MAX_TIMEOUT_VALUE : NANO_OS_MS_TO_TICKS(timeout);
+        const nano_os_error_t os_err = NANO_OS_FLAG_SET_Wait(flags, *flag_mask, false, reset_flags, flag_mask, os_timeout);
         if (os_err == NOS_ERR_SUCCESS)
         {
             ret = NIP_ERR_SUCCESS;

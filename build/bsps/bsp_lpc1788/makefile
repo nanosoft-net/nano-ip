@@ -30,8 +30,9 @@ PROJECT_NAME := bsp_lpc1788
 BUILD_TYPE := LIB
 
 # Projects that need to be build before the project or containing necessary include paths
-PROJECT_DEPENDENCIES := libs/nanoip \
-                        libs/net_if/lpc_emac_netif
+PROJECT_DEPENDENCIES = libs/nanoip \
+                       libs/net_if/lpc_emac_netif \
+					   $(TARGET_DEPENDENCIES)
 
 			  
 # Including common makefile definitions

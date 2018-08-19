@@ -32,6 +32,16 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 static const uint8_t MAC_ADDRESS[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
 
 
+/************************** Demo options ***************************/
+
+/** \brief Priority of the demo task */
+#define DEMO_TASK_PRIORITY                  8u
+
+/** \brief Size in bytes of the demo task */
+#define DEMO_TASK_STACK_SIZE                1024u
+
+
+
 /************************** UDP demo options ***************************/
 
 /** \brief Enable or disable the UDP echo demo */
@@ -86,7 +96,7 @@ static const uint8_t MAC_ADDRESS[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
 #define TCP_CLIENT_ECHO_TASK_STACK_SIZE         512u
 
 /** \brief TCP client destination address */
-#define TCP_CLIENT_ECHO_DEMO_DEST_ADDRESS       "192.168.137.106"
+#define TCP_CLIENT_ECHO_DEMO_DEST_ADDRESS       "192.168.0.1"
 
 /** \brief TCP client destination port */
 #define TCP_CLIENT_ECHO_DEMO_DEST_PORT          4567u
@@ -229,12 +239,52 @@ static void DEMO_UDP_EchoRxTask(void* param);
 #endif /* TCP_CLIENT_ECHO_DEMO_ENABLED */
 
 
+#ifndef NANO_IP_OAL_OS_LESS
+/** \brief Demo task handle */
+static oal_task_t s_demo_task;
+#endif /* NANO_IP_OAL_OS_LESS */
 
-
+/** \brief Demo task */
+static void DEMO_Task(void* unused);
 
 
 /** \brief Application entry point */
 int main(void)
+{
+    bool ret;
+
+    /* Initialize operating system */
+    ret = NANO_IP_BSP_OSInit();
+    if (ret)
+    {
+        /* Create the Demo task */
+        #ifndef NANO_IP_OAL_OS_LESS
+        const nano_ip_error_t err = NANO_IP_OAL_TASK_Create(&s_demo_task, "Demo task", DEMO_Task, NULL, DEMO_TASK_PRIORITY, DEMO_TASK_STACK_SIZE);
+        if (err != NIP_ERR_SUCCESS)
+        {
+            ret = false;
+        }
+        #else
+        DEMO_Task(NULL);
+        #endif /* NANO_IP_OAL_OS_LESS */
+    }
+
+    /* Start the operating system */
+    if (ret)
+    {
+        ret = NANO_IP_BSP_OSStart();
+    }
+    
+    /* If we get here, an error has happened while initializing/starting the operating system */
+    while (!ret)
+    {}
+
+    return 0;
+}
+
+
+/** \brief Demo task */
+static void DEMO_Task(void* unused)
 {
     bool ret = false;
     nano_ip_error_t err = NIP_ERR_FAILURE;
@@ -245,18 +295,16 @@ int main(void)
     uint8_t task_priority = 0u;
     uint32_t task_stack_size = 0u;
 
-    /* Initialize operating system */
-    ret = NANO_IP_BSP_OSInit();
+    (void)unused;
+
+    /* Create packet allocator */
+    ret = NANO_IP_BSP_CreatePacketAllocator(&s_packet_allocator);
     if (ret)
     {
-        /* Create packet allocator */
-        ret = NANO_IP_BSP_CreatePacketAllocator(&s_packet_allocator);
-        if (ret)
-        {
-            /* Create network interface */
-            ret = NANO_IP_BSP_CreateNetIf(&s_net_if, &net_if_name, &rx_packet_count, &rx_packet_size, &task_priority, &task_stack_size);
-        }
+        /* Create network interface */
+        ret = NANO_IP_BSP_CreateNetIf(&s_net_if, &net_if_name, &rx_packet_count, &rx_packet_size, &task_priority, &task_stack_size);
     }
+
     if (ret)
     {
         /* Initialize IP stack */
@@ -446,11 +494,17 @@ int main(void)
         NANO_IP_LOG_ERROR("main() : Error %d during initalization", NANO_IP_CAST(int32_t, err));
     }
 
-    /* Start the operating system */
-    NANO_IP_BSP_OSStart();
+    #ifndef NANO_IP_OAL_OS_LESS
+    /* Init is done, sleep forever */
+    while (true)
+    {
+        NANO_IP_OAL_TASK_Sleep(NANO_IP_MAX_TIMEOUT_VALUE);
+    }
+    #endif /* NANO_IP_OAL_OS_LESS */
 
-    return 0;
 }
+
+
 
 
 

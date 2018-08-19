@@ -45,3 +45,10 @@ nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name
 
     return ret;
 }
+
+/** \brief Put the current task into sleep for a given amount of milliseconds */
+nano_ip_error_t NANO_IP_OAL_TASK_Sleep(const uint32_t timeout)
+{
+    Sleep(timeout);
+    return NIP_ERR_SUCCESS;
+}

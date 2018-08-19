@@ -26,7 +26,8 @@ LIBRARY_DIR := $(BSP_DIR)/bsp_lpc1788
 
 # Source directories
 SOURCE_DIRS := $(LIBRARY_DIR) \
-			   $(LIBRARY_DIR)/$(COMPILER_NAME)
+			   $(LIBRARY_DIR)/$(COMPILER_NAME) \
+               $(LIBRARY_DIR)/$(TARGET_OS)
               
 # Project specific include directories
 PROJECT_INC_DIRS := $(PROJECT_INC_DIRS) \

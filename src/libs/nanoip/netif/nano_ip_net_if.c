@@ -121,7 +121,7 @@ nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* 
         /* Create the Rx task */
         if (ret == NIP_ERR_SUCCESS)
         {
-            ret = NANO_IP_OAL_TASK_Create(&net_if->task, "NanoIP NANO_IP_NET_IF_RxTask()", NANO_IP_NET_IF_RxTask, net_if, task_priority, task_stack_size);
+            ret = NANO_IP_OAL_TASK_Create(&net_if->task, net_if->name, NANO_IP_NET_IF_RxTask, net_if, task_priority, task_stack_size);
         }
 
     }

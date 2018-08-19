@@ -25,12 +25,15 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #include "nano_ip_big_small_packet_allocator.h"
 #include "nano_ip_generic_phy.h"
 
+#ifdef NANO_IP_OAL_NANO_OS
+#include "nano_os_api.h"
+#endif /* NANO_IP_OAL_NANO_OS */
 
 
 
 /** \brief Network interface task priority and stack configuration */
 #define NETIF_TASK_PRIORITY     5u
-#define NETIF_TASK_SIZE         512u
+#define NETIF_TASK_SIZE         1024u
 
 
 
