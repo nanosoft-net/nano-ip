@@ -80,7 +80,7 @@ nano_ip_error_t NANO_IP_UDP_InitializeHandle(nano_ip_udp_handle_t* const handle,
     if ((handle != NULL) && (callback != NULL))
     {
         /* 0 init */
-        MEMSET(handle, 0, sizeof(nano_ip_udp_handle_t));
+        NANO_IP_MEMSET(handle, 0, sizeof(nano_ip_udp_handle_t));
 
         /* Initialize IPv4 handle */
         ret = NANO_IP_IPV4_InitializeHandle(&handle->ipv4_handle, handle, NANO_IP_UDP_Ipv4ErrorCallback);
@@ -400,7 +400,7 @@ static void NANO_IP_UDP_Ipv4ErrorCallback(void* const user_data, const nano_ip_e
     if (handle != NULL)
     {
         nano_ip_udp_event_data_t event_data;
-        (void)MEMSET(&event_data, 0, sizeof(event_data));
+        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
         event_data.error = error;
         if (error == NIP_ERR_SUCCESS)
         {
@@ -478,7 +478,7 @@ static nano_ip_error_t NANO_IP_UDP_RxFrame(void* user_data, nano_ip_net_if_t* co
                         /* Call the registered callback */
                         bool release_packet;
                         nano_ip_udp_event_data_t event_data;
-                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                         event_data.error = NIP_ERR_SUCCESS;
                         event_data.udp_header = &udp_header;
                         event_data.packet = packet;

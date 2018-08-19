@@ -88,7 +88,7 @@ nano_ip_error_t NANO_IP_ROUTE_Delete(const ipv4_address_t dest_addr, const ipv4_
                 (route_entry->netmask == netmask) )
         {
             /* Free entry */
-            MEMSET(route_entry, 0, sizeof(nano_ip_net_route_t));
+            NANO_IP_MEMSET(route_entry, 0, sizeof(nano_ip_net_route_t));
             route_module->route_used_entries_count--;
             ret = NIP_ERR_SUCCESS;
         }

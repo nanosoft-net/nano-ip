@@ -30,13 +30,13 @@ PROJECT_NAME := bsp_lpc43s37
 BUILD_TYPE := LIB
 
 # Projects that need to be build before the project or containing necessary include paths
-PROJECT_DEPENDENCIES := libs/nanoip \
-                        libs/net_if/synopsys_emac_netif
+PROJECT_DEPENDENCIES = libs/nanoip \
+                       libs/net_if/synopsys_emac_netif \
+                       $(TARGET_DEPENDENCIES)
 
 			  
 # Including common makefile definitions
 include $(ROOT_DIR)/build/make/generic_makefile
-
 
 # Rules for building the source files
 $(BIN_DIR)/$(OUTPUT_NAME): $(BIN_DEPENDENCIES)

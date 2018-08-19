@@ -45,13 +45,13 @@ void NANO_IP_LOG_Log(const char* const level, const char* const msg, ...)
     const uint32_t timestamp = NANO_IP_OAL_TIME_GetMsCounter();
 
     /* Initialize the log buffer */
-    ITOA(NANO_IP_CAST(int, timestamp), log_buffer, 10);
-    timestamp_size = STRNLEN(log_buffer, sizeof(log_buffer));
-    STRNCAT(log_buffer, " - [", 5u);
-    STRNCAT(log_buffer, level, 5u);
-    STRNCAT(log_buffer, "] ", 3u);
-    STRNCAT(log_buffer, msg, sizeof(log_buffer) - (2u + timestamp_size + LOG_LEVEL_FORMAT_STRING_SIZE));
-    STRNCAT(log_buffer, "\n", 2u);
+    NANO_IP_ITOA(NANO_IP_CAST(int, timestamp), log_buffer, 10);
+    timestamp_size = NANO_IP_STRNLEN(log_buffer, sizeof(log_buffer));
+    NANO_IP_STRNCAT(log_buffer, " - [", 5u);
+    NANO_IP_STRNCAT(log_buffer, level, 5u);
+    NANO_IP_STRNCAT(log_buffer, "] ", 3u);
+    NANO_IP_STRNCAT(log_buffer, msg, sizeof(log_buffer) - (2u + timestamp_size + LOG_LEVEL_FORMAT_STRING_SIZE));
+    NANO_IP_STRNCAT(log_buffer, "\n", 2u);
 
     /* Call user defined log function */
     va_start(arg_list, msg);

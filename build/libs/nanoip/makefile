@@ -31,7 +31,7 @@ BUILD_TYPE := LIB
 
 # Projects that need to be build before the project or containing necessary include paths
 PROJECT_DEPENDENCIES = $(TARGET_BSP) \
-                       $(if $(findstring freertos, $(TARGET_OS)), 3rdparty/freertos) \
+                       $(TARGET_DEPENDENCIES)
 
 			  
 # Including common makefile definitions

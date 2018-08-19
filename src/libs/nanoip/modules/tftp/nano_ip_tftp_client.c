@@ -61,7 +61,7 @@ nano_ip_error_t NANO_IP_TFTP_CLIENT_Init(nano_ip_tftp_client_t* const tftp_clien
         (callbacks != NULL))
     {
         /* 0 init */
-        MEMSET(tftp_client, 0, sizeof(nano_ip_tftp_client_t));
+        NANO_IP_MEMSET(tftp_client, 0, sizeof(nano_ip_tftp_client_t));
 
         /* Initialize instance */
         ret = NANO_IP_TFTP_Init(&tftp_client->tftp_module, listen_address, listen_port, callbacks, user_data, timeout);
@@ -81,7 +81,7 @@ nano_ip_error_t NANO_IP_TFTP_CLIENT_Init(nano_ip_tftp_client_t* const tftp_clien
         }
         if (ret == NIP_ERR_SUCCESS)
         {
-            ret = NANO_IP_OAL_TASK_Create(&tftp_client->task, "TFTP Client", NANO_IP_TFTP_CLIENT_Task, tftp_client);
+            ret = NANO_IP_OAL_TASK_Create(&tftp_client->task, "TFTP Client", NANO_IP_TFTP_CLIENT_Task, tftp_client, NANO_IP_TFTP_CLIENT_TASK_PRIORITY, NANO_IP_TFTP_CLIENT_TASK_STACK_SIZE);
         }
         #endif /* NANO_IP_ENABLE_TFTP_CLIENT_TASK */
     }

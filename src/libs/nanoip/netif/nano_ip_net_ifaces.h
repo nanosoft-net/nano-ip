@@ -60,7 +60,9 @@ typedef struct _nano_ip_net_ifaces_module_data_t
 nano_ip_error_t NANO_IP_NET_IFACES_Init(void);
 
 /** \brief Add a network interface */
-nano_ip_error_t NANO_IP_NET_IFACES_AddNetInterface(nano_ip_net_if_t* const net_iface, const char* const name, const uint32_t rx_packet_count, const uint32_t rx_packet_size);
+nano_ip_error_t NANO_IP_NET_IFACES_AddNetInterface(nano_ip_net_if_t* const net_iface, const char* const name, 
+                                                   const uint32_t rx_packet_count, const uint32_t rx_packet_size,
+                                                   const uint8_t task_priority, const uint32_t task_stack_size);
 
 /** \brief Bring up a network interface */
 nano_ip_error_t NANO_IP_NET_IFACES_Up(const uint8_t iface);

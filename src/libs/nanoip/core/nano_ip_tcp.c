@@ -136,7 +136,7 @@ nano_ip_error_t NANO_IP_TCP_InitializeHandle(nano_ip_tcp_handle_t* const handle,
     if ((handle != NULL) && (callback != NULL))
     {
         /* 0 init */
-        MEMSET(handle, 0, sizeof(nano_ip_tcp_handle_t));
+        NANO_IP_MEMSET(handle, 0, sizeof(nano_ip_tcp_handle_t));
 
         /* Initialize IPv4 handle */
         ret = NANO_IP_IPV4_InitializeHandle(&handle->ipv4_handle, handle, NANO_IP_TCP_Ipv4ErrorCallback);
@@ -526,7 +526,7 @@ static void NANO_IP_TCP_Ipv4ErrorCallback(void* const user_data, const nano_ip_e
     if (handle != NULL)
     {
         nano_ip_tcp_event_data_t event_data;
-        (void)MEMSET(&event_data, 0, sizeof(event_data));
+        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
         event_data.error = error;
         if (error == NIP_ERR_SUCCESS)
         {
@@ -663,7 +663,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                 NANO_IP_TCP_RemoveHandle(handle);
 
                                 /* Call the registered callback */
-                                (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                 event_data.error = NIP_ERR_CONN_RESET;
                                 (void)handle->callback(handle->user_data, TCP_EVENT_CLOSED, &event_data);
                             }
@@ -684,7 +684,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                         nano_ip_tcp_handle_t* accept_handle = NULL;
 
                                         /* Call the registered callback */
-                                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                         event_data.error = NIP_ERR_SUCCESS;
                                         event_data.accept_handle = &accept_handle;
                                         (void)handle->callback(handle->user_data, TCP_EVENT_ACCEPTING, &event_data);
@@ -724,7 +724,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                             else
                                             {
                                                 /* Call the registered callback */
-                                                (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                                (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                                 event_data.error = NIP_ERR_INVALID_TCP_STATE;
                                                 (void)handle->callback(accept_handle->user_data, TCP_EVENT_ACCEPT_FAILED, &event_data);
                                             }
@@ -742,7 +742,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                         handle->state = TCP_STATE_ESTABLISHED;
 
                                         /* Call the registered callback */
-                                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                         event_data.error = NIP_ERR_SUCCESS;
                                         (void)handle->callback(handle->user_data, TCP_EVENT_ACCEPTED, &event_data);
                                     }
@@ -765,7 +765,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                             handle->state = TCP_STATE_ESTABLISHED;
 
                                             /* Call the registered callback */
-                                            (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                            (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                             event_data.error = NIP_ERR_SUCCESS;
                                             (void)handle->callback(handle->user_data, TCP_EVENT_CONNECTED, &event_data);
                                         }
@@ -789,7 +789,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                             if (ret == NIP_ERR_SUCCESS)
                                             {
                                                 /* Data received, call the registered callback */
-                                                (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                                (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                                 event_data.error = NIP_ERR_SUCCESS;
                                                 event_data.packet = packet;
                                                 release_packet = handle->callback(handle->user_data, TCP_EVENT_RX, &event_data);
@@ -803,7 +803,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                         handle->last_tx_packet = NULL;
 
                                         /* Call the registered callback */
-                                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                         event_data.error = NIP_ERR_SUCCESS;
                                         (void)handle->callback(handle->user_data, TCP_EVENT_TX, &event_data);
                                     }
@@ -840,7 +840,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                         NANO_IP_TCP_RemoveHandle(handle);
 
                                         /* Call the registered callback */
-                                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                         event_data.error = NIP_ERR_SUCCESS;
                                         (void)handle->callback(handle->user_data, TCP_EVENT_CLOSED, &event_data);
                                     }
@@ -919,7 +919,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                     NANO_IP_TCP_RemoveHandle(handle);
 
                                     /* Call the registered callback */
-                                    (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                    (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                     event_data.error = NIP_ERR_FAILURE;
                                     (void)handle->callback(handle->user_data, TCP_EVENT_CLOSED, &event_data);
                                     break;
@@ -937,7 +937,7 @@ static nano_ip_error_t NANO_IP_TCP_RxFrame(void* user_data, nano_ip_net_if_t* co
                                 NANO_IP_TCP_RemoveHandle(handle);
 
                                 /* Call the registered callback */
-                                (void)MEMSET(&event_data, 0, sizeof(event_data));
+                                (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                                 event_data.error = NIP_ERR_FAILURE;
                                 (void)handle->callback(handle->user_data, TCP_EVENT_CLOSED, &event_data);
                             }
@@ -996,7 +996,7 @@ static void NANO_IP_TCP_PeriodicTask(const uint32_t timestamp, void* const user_
                         NANO_IP_TCP_RemoveHandle(tcp_handle);
 
                         /* Call the registered callback */
-                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                         event_data.error = NIP_ERR_TIMEOUT;
                         (void)tcp_handle->callback(tcp_handle->user_data, TCP_EVENT_CONNECT_TIMEOUT, &event_data);
                     }
@@ -1013,7 +1013,7 @@ static void NANO_IP_TCP_PeriodicTask(const uint32_t timestamp, void* const user_
                         NANO_IP_TCP_RemoveHandle(tcp_handle);
 
                         /* Call the registered callback */
-                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                         event_data.error = NIP_ERR_TIMEOUT;
                         (void)tcp_handle->callback(tcp_handle->user_data, TCP_EVENT_ACCEPT_FAILED, &event_data);
                     }
@@ -1038,7 +1038,7 @@ static void NANO_IP_TCP_PeriodicTask(const uint32_t timestamp, void* const user_
                             NANO_IP_TCP_RemoveHandle(tcp_handle);
 
                             /* Call the registered callback */
-                            (void)MEMSET(&event_data, 0, sizeof(event_data));
+                            (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                             event_data.error = NIP_ERR_TIMEOUT;
                             (void)tcp_handle->callback(tcp_handle->user_data, TCP_EVENT_TX_FAILED, &event_data);
                             (void)tcp_handle->callback(tcp_handle->user_data, TCP_EVENT_CLOSED, &event_data);
@@ -1073,7 +1073,7 @@ static void NANO_IP_TCP_PeriodicTask(const uint32_t timestamp, void* const user_
                         NANO_IP_TCP_RemoveHandle(tcp_handle);
 
                         /* Call the registered callback */
-                        (void)MEMSET(&event_data, 0, sizeof(event_data));
+                        (void)NANO_IP_MEMSET(&event_data, 0, sizeof(event_data));
                         if (tcp_handle->state == TCP_STATE_CLOSE_WAIT)
                         {
                             event_data.error = NIP_ERR_SUCCESS;
@@ -1209,7 +1209,7 @@ static nano_ip_error_t NANO_IP_TCP_FinalizeAndSendPacket(nano_ip_tcp_handle_t* c
     /* Save IPv4 header */
     if (handle->last_tx_packet != NULL)
     {
-        (void)MEMCPY(&handle->last_tx_packet_ipv4_header, &ipv4_header, sizeof(ipv4_header_t));
+        (void)NANO_IP_MEMCPY(&handle->last_tx_packet_ipv4_header, &ipv4_header, sizeof(ipv4_header_t));
     }
 
     /* Write checksum */

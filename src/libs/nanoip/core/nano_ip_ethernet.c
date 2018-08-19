@@ -124,8 +124,8 @@ nano_ip_error_t NANO_IP_ETHERNET_RxFrame(nano_ip_net_if_t* const net_if, nano_ip
                 else
                 {
                     /* Compare to own address and broadcast address */
-                    if ((MEMCMP(eth_header.dest_address, net_if->mac_address, MAC_ADDRESS_SIZE) != 0) &&
-                        (MEMCMP(eth_header.dest_address, ETHERNET_BROADCAST_MAC_ADDRESS, MAC_ADDRESS_SIZE) != 0))
+                    if ((NANO_IP_MEMCMP(eth_header.dest_address, net_if->mac_address, MAC_ADDRESS_SIZE) != 0) &&
+                        (NANO_IP_MEMCMP(eth_header.dest_address, ETHERNET_BROADCAST_MAC_ADDRESS, MAC_ADDRESS_SIZE) != 0))
                     {
                         ret = NIP_ERR_IGNORE_PACKET;
                     }
@@ -204,7 +204,7 @@ nano_ip_error_t NANO_IP_ETHERNET_SendPacket(nano_ip_net_if_t* const net_if, cons
         /* Pad frame to the minimum ethernet frame size */
         if ((packet->count < MIN_ETHERNET_FRAME_SIZE) && ((net_if->driver->caps & NETDRV_CAP_ETH_FRAME_PADDING) == 0u) )
         {
-            MEMSET(packet->current, 0, MIN_ETHERNET_FRAME_SIZE - packet->count);
+            NANO_IP_MEMSET(packet->current, 0, MIN_ETHERNET_FRAME_SIZE - packet->count);
             packet->count = MIN_ETHERNET_FRAME_SIZE;
         }
 

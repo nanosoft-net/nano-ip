@@ -269,11 +269,11 @@ nano_ip_error_t NANO_IP_SYNOPSYS_EMAC_Init(nano_ip_net_if_t* const synopsys_emac
         (config->phy_driver != NULL))
     {
         /* 0 init */
-        (void)MEMSET(&s_synopsys_emac_driver_data, 0, sizeof(synopsys_emac_drv_t));
+        (void)NANO_IP_MEMSET(&s_synopsys_emac_driver_data, 0, sizeof(synopsys_emac_drv_t));
 
         /* Init driver interface */
         s_synopsys_emac_driver_data.net_if = synopsys_emac_iface;
-        (void)MEMCPY(&s_synopsys_emac_driver_data.config, config, sizeof(nano_ip_synopsys_emac_config_t));
+        (void)NANO_IP_MEMCPY(&s_synopsys_emac_driver_data.config, config, sizeof(nano_ip_synopsys_emac_config_t));
         synopsys_emac_iface->driver = &s_synopsys_emac_driver;
 
         /* Save SYNOPSYS EMAC base address */
@@ -303,7 +303,7 @@ static nano_ip_error_t NANO_IP_SYNOPSYS_EMAC_DrvInit(void* const user_data, net_
         volatile synopsys_emac_regs_t* const synopsys_emac_regs = synopsys_emac_driver->regs;
 
         /* Save callbacks */
-        (void)MEMCPY(&synopsys_emac_driver->callbacks, callbacks, sizeof(net_driver_callbacks_t));
+        (void)NANO_IP_MEMCPY(&synopsys_emac_driver->callbacks, callbacks, sizeof(net_driver_callbacks_t));
 
         /* Initialize clocks and IOs */
         ret = NANO_IP_HAL_InitializeNetIfClock(synopsys_emac_driver->net_if);

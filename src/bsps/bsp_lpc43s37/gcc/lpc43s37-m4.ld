@@ -51,7 +51,7 @@ SECTIONS
   /* Stack */
   .stack :
   {
-    . = ALIGN(4) + 0x00001000;
+    . = ALIGN(4) + 0x0000300;
     _TOP_OF_STACKS_ = .;
   } > ram_m4
   
@@ -63,7 +63,7 @@ SECTIONS
     end = __end__;
     __HeapBase = __end__;
     *(.heap*)
-    . = ALIGN(4) + 0x0800;
+    . = ALIGN(4) + 0x0000;
     __HeapLimit = .;
   } > ram_m4
   

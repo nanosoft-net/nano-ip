@@ -70,12 +70,16 @@ bool NANO_IP_BSP_CreatePacketAllocator(nano_ip_net_packet_allocator_t* const pac
 }
 
 /** \brief Instanciate the network interface */
-bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, uint32_t* const rx_packet_count, uint32_t* const rx_packet_size)
+bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, 
+                             uint32_t* const rx_packet_count, uint32_t* const rx_packet_size,
+                             uint8_t* const task_priority, uint32_t* const task_stack_size)
 {
     const nano_ip_error_t err = NANO_IP_PCAP_Init(net_if, NULL);
     (*name) = "pcap0";
     (*rx_packet_count) = 900u;
     (*rx_packet_size) = BIG_BUFFER_SIZE;
+    (*task_priority) = 0;
+    (*task_stack_size) = 0;
     return (err == NIP_ERR_SUCCESS);
 }
 

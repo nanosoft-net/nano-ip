@@ -195,7 +195,7 @@ nano_ip_error_t NANO_IP_ARP_AddEntry(const nano_ip_arp_entry_type_t type, const 
         {
             entry->entry_type = type;
             entry->ipv4_address = ipv4_address;
-            MEMCPY(entry->mac_address, mac_address, MAC_ADDRESS_SIZE);
+            NANO_IP_MEMCPY(entry->mac_address, mac_address, MAC_ADDRESS_SIZE);
             entry->timestamp = NANO_IP_OAL_TIME_GetMsCounter();
 
             ret = NIP_ERR_SUCCESS;
@@ -233,7 +233,7 @@ nano_ip_error_t NANO_IP_ARP_RemoveEntry(const ipv4_address_t ipv4_address)
             if (entry->ipv4_address == ipv4_address)
             {
                 /* Remove entry */
-                MEMSET(entry, 0, sizeof(nano_ip_arp_table_entry_t));
+                NANO_IP_MEMSET(entry, 0, sizeof(nano_ip_arp_table_entry_t));
                 ret = NIP_ERR_SUCCESS;
             }
         }
@@ -274,7 +274,7 @@ nano_ip_error_t NANO_IP_ARP_Request(nano_ip_net_if_t* const net_if, nano_ip_arp_
                 if( (entry->entry_type == AET_STATIC) || ((timestamp - entry->timestamp) <= NANO_IP_ARP_ENTRY_VALIDITY_PERIOD) )
                 {
                     /* Copy MAC address */
-                    MEMCPY(request->mac_address, entry->mac_address, MAC_ADDRESS_SIZE);
+                    NANO_IP_MEMCPY(request->mac_address, entry->mac_address, MAC_ADDRESS_SIZE);
                     ret = NIP_ERR_SUCCESS;
                 }
                 else
@@ -315,8 +315,8 @@ nano_ip_error_t NANO_IP_ARP_Request(nano_ip_net_if_t* const net_if, nano_ip_arp_
                 NANO_IP_PACKET_Write32bits(packet, ipv4_address);
 
                 /* Prepare ethernet header */
-                MEMCPY(eth_header.dest_address, ETHERNET_BROADCAST_MAC_ADDRESS, MAC_ADDRESS_SIZE);
-                MEMCPY(eth_header.src_address, net_if->mac_address, MAC_ADDRESS_SIZE);
+                NANO_IP_MEMCPY(eth_header.dest_address, ETHERNET_BROADCAST_MAC_ADDRESS, MAC_ADDRESS_SIZE);
+                NANO_IP_MEMCPY(eth_header.src_address, net_if->mac_address, MAC_ADDRESS_SIZE);
                 eth_header.ether_type = ARP_PROTOCOL;
 
                 /* Send request */
@@ -490,8 +490,8 @@ static nano_ip_error_t NANO_IP_ARP_HandleRequest(nano_ip_net_if_t* const net_if,
             NANO_IP_PACKET_Write32bits(packet, request->sender_proto_address);
 
             /* Prepare ethernet header */
-            MEMCPY(eth_header.dest_address, request->sender_hw_address, MAC_ADDRESS_SIZE);
-            MEMCPY(eth_header.src_address, net_if->mac_address, MAC_ADDRESS_SIZE);
+            NANO_IP_MEMCPY(eth_header.dest_address, request->sender_hw_address, MAC_ADDRESS_SIZE);
+            NANO_IP_MEMCPY(eth_header.src_address, net_if->mac_address, MAC_ADDRESS_SIZE);
             eth_header.ether_type = ARP_PROTOCOL;
 
             /* Send response */
@@ -529,7 +529,7 @@ static nano_ip_error_t NANO_IP_ARP_HandleResponse(nano_ip_net_if_t* const net_if
                 (void)NANO_IP_ARP_AddEntry(AET_DYNAMIC, response->sender_hw_address, response->sender_proto_address);
 
                 /* Save MAC address */
-                MEMCPY(request->mac_address, response->sender_hw_address, MAC_ADDRESS_SIZE);
+                NANO_IP_MEMCPY(request->mac_address, response->sender_hw_address, MAC_ADDRESS_SIZE);
 
                 /* Remove request from the list */
                 if (previous_request != NULL)

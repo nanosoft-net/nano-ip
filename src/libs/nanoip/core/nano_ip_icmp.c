@@ -116,7 +116,7 @@ nano_ip_error_t NANO_IP_ICMP_InitRequest(nano_ip_icmp_request_t* const request)
     if (request != NULL)
     {
         /* 0 init */
-        MEMSET(request, 0, sizeof(nano_ip_icmp_request_t));
+        NANO_IP_MEMSET(request, 0, sizeof(nano_ip_icmp_request_t));
 
         /* Initialize IPv4 handle */
         ret = NANO_IP_IPV4_InitializeHandle(&request->ipv4_handle, request, NANO_IP_ICMP_Ipv4ErrorCallback);

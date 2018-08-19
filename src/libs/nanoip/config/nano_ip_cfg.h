@@ -69,6 +69,13 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 /** \brief Enable localhost interface */
 #define NANO_IP_ENABLE_LOCALHOST                1u
 
+/** \brief Priority of the localhost interface task */
+#define NANO_IP_LOCALHOST_TASK_PRIORITY         3u
+
+/** \brief Size in bytes of the localhost interface task */
+#define NANO_IP_LOCALHOST_TASK_STACK_SIZE       512u
+
+
 
 /** \brief Maximum number of network routes (must be at least (2u * NANO_IP_MAX_NET_INTERFACES_COUNT + 2u)) */
 #define NANO_IP_MAX_NET_ROUTE_COUNT             ((2u * 2u + 2u) + 0u)
@@ -166,11 +173,23 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 /** \brief Create a specific task for the TFTP server module */
 #define NANO_IP_ENABLE_TFTP_SERVER_TASK         1u
 
+/** \brief Priority of the TFTP server task */
+#define NANO_IP_TFTP_SERVER_TASK_PRIORITY       2u
+
+/** \brief Size in bytes of the TFTP server task */
+#define NANO_IP_TFTP_SERVER_TASK_STACK_SIZE     512u
+
 /** \brief Enable TFTP client module */
 #define NANO_IP_ENABLE_TFTP_CLIENT              1u
 
 /** \brief Create a specific task for the TFTP client module */
 #define NANO_IP_ENABLE_TFTP_CLIENT_TASK         1u
+
+/** \brief Priority of the TFTP client task */
+#define NANO_IP_TFTP_CLIENT_TASK_PRIORITY       2u
+
+/** \brief Size in bytes of the TFTP client task */
+#define NANO_IP_TFTP_CLIENT_TASK_STACK_SIZE     512u
 
 
 #endif /* NANO_IP_CFG_H */

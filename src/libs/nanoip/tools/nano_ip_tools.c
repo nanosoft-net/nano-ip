@@ -407,7 +407,7 @@ uint32_t NANO_IP_inet_ntoa(const char* addr_str)
                 /* Extract value */
                 uint8_t part_value;
                 part[part_index] = 0;
-                part_value = ATOI(part);
+                part_value = NANO_IP_ATOI(part);
                 ip_addr += (part_value << (8u * (3u - part_count)));
                 part_index = 0;
                 part_count++;

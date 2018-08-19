@@ -61,7 +61,9 @@ static void NANO_IP_NET_IF_PeriodicTimerCallback(oal_timer_t* const timer, void*
 
 
 /** \brief Initialize a network interface */
-nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* const name, const uint32_t rx_packet_count, const uint32_t rx_packet_size)
+nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* const name, 
+                                    const uint32_t rx_packet_count, const uint32_t rx_packet_size,
+                                    const uint8_t task_priority, const uint32_t task_stack_size)
 {
     nano_ip_error_t ret = NIP_ERR_INVALID_ARG;
 
@@ -73,7 +75,7 @@ nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* 
         const nano_ip_net_driver_t* const net_driver = net_if->driver;
 
         /* 0 init */
-        MEMSET(net_if, 0, sizeof(nano_ip_net_if_t));
+        NANO_IP_MEMSET(net_if, 0, sizeof(nano_ip_net_if_t));
         net_if->driver = net_driver;
 
         /* Save name */
@@ -119,7 +121,7 @@ nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* 
         /* Create the Rx task */
         if (ret == NIP_ERR_SUCCESS)
         {
-            ret = NANO_IP_OAL_TASK_Create(&net_if->task, "NanoIP NANO_IP_NET_IF_RxTask()", NANO_IP_NET_IF_RxTask, net_if);
+            ret = NANO_IP_OAL_TASK_Create(&net_if->task, "NanoIP NANO_IP_NET_IF_RxTask()", NANO_IP_NET_IF_RxTask, net_if, task_priority, task_stack_size);
         }
 
     }
@@ -176,7 +178,7 @@ nano_ip_error_t NANO_IP_NET_IF_SetMacAddress(nano_ip_net_if_t* const net_if, con
     if (net_if != NULL)
     {
         /* Update MAC address */
-        (void)MEMCPY(net_if->mac_address, mac_address, MAC_ADDRESS_SIZE);
+        (void)NANO_IP_MEMCPY(net_if->mac_address, mac_address, MAC_ADDRESS_SIZE);
 
         /* Set the MAC addresss in the driver if the implementation allows it */
         if (net_if->driver->set_mac_address != NULL)

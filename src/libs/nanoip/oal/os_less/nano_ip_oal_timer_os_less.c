@@ -49,7 +49,7 @@ nano_ip_error_t NANO_IP_OAL_TIMER_Create(oal_timer_t* const timer, const fp_time
     if ((timer != NULL) && (callback != NULL))
     {
         /* Fill timer handle */
-        (void)MEMSET(timer, 0, sizeof(oal_timer_t));
+        (void)NANO_IP_MEMSET(timer, 0, sizeof(oal_timer_t));
         timer->callback = callback;
         timer->user_data = user_data;
 

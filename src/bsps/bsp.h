@@ -49,7 +49,9 @@ bool NANO_IP_BSP_OSStart();
 bool NANO_IP_BSP_CreatePacketAllocator(nano_ip_net_packet_allocator_t* const packet_allocator);
 
 /** \brief Instanciate the network interface */
-bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, uint32_t* const rx_packet_count, uint32_t* const rx_packet_size);
+bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, 
+                             uint32_t* const rx_packet_count, uint32_t* const rx_packet_size,
+                             uint8_t* const task_priority, uint32_t* const task_stack_size);
 
 
 /** \brief Log output function */

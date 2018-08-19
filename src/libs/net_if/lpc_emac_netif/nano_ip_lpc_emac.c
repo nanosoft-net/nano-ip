@@ -266,11 +266,11 @@ nano_ip_error_t NANO_IP_LPC_EMAC_Init(nano_ip_net_if_t* const lpc_emac_iface, fp
         (config->phy_driver != NULL))
     {
         /* 0 init */
-        (void)MEMSET(&s_lpc_emac_driver_data, 0, sizeof(lpc_emac_drv_t));
+        (void)NANO_IP_MEMSET(&s_lpc_emac_driver_data, 0, sizeof(lpc_emac_drv_t));
 
         /* Init driver interface */
         s_lpc_emac_driver_data.net_if = lpc_emac_iface;
-        (void)MEMCPY(&s_lpc_emac_driver_data.config, config, sizeof(nano_ip_lpc_emac_config_t));
+        (void)NANO_IP_MEMCPY(&s_lpc_emac_driver_data.config, config, sizeof(nano_ip_lpc_emac_config_t));
         lpc_emac_iface->driver = &s_lpc_emac_driver;
 
         /* Save LPC EMAC base address */
@@ -299,7 +299,7 @@ static nano_ip_error_t NANO_IP_LPC_EMAC_DrvInit(void* const user_data, net_drive
         volatile lpc_emac_regs_t* const lpc_emac_regs = lpc_emac_driver->regs;
 
         /* Save callbacks */
-        (void)MEMCPY(&lpc_emac_driver->callbacks, callbacks, sizeof(net_driver_callbacks_t));
+        (void)NANO_IP_MEMCPY(&lpc_emac_driver->callbacks, callbacks, sizeof(net_driver_callbacks_t));
 
         /* Initialize clocks and IOs */
         ret = NANO_IP_HAL_InitializeNetIfClock(lpc_emac_driver->net_if);

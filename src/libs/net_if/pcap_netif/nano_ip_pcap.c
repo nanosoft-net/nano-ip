@@ -170,14 +170,14 @@ nano_ip_error_t NANO_IP_PCAP_Init(nano_ip_net_if_t* const pcap_iface, const char
             if (pcap_drv_inst != NULL)
             {
                 /* 0 init */
-                MEMSET(pcap_drv_inst, 0, sizeof(pcap_drv_t));
+                NANO_IP_MEMSET(pcap_drv_inst, 0, sizeof(pcap_drv_t));
 
                 /* ALlocate driver */
                 pcap_drv_inst->driver = NANO_IP_CAST(nano_ip_net_driver_t*, malloc(sizeof(nano_ip_net_driver_t)));
                 if (pcap_drv_inst->driver != NULL)
                 {
                     /* 0 init */
-                    MEMSET(pcap_drv_inst->driver, 0, sizeof(nano_ip_net_driver_t));
+                    NANO_IP_MEMSET(pcap_drv_inst->driver, 0, sizeof(nano_ip_net_driver_t));
 
                     /* Init driver interface */
                     pcap_drv_inst->name = iface_name;
@@ -231,7 +231,7 @@ static nano_ip_error_t NANO_IP_PCAP_DrvInit(void* const user_data, net_driver_ca
     /* Check parameters */
     if (pcap_drv_inst != NULL)
     {
-        (void)MEMCPY(&pcap_drv_inst->callbacks, callbacks, sizeof(net_driver_callbacks_t));
+        (void)NANO_IP_MEMCPY(&pcap_drv_inst->callbacks, callbacks, sizeof(net_driver_callbacks_t));
         ret = NIP_ERR_SUCCESS;
     }
 
@@ -264,7 +264,7 @@ static nano_ip_error_t NANO_IP_PCAP_DrvStart(void* const user_data)
         else
         {
             /* Create receive task */
-            ret = NANO_IP_OAL_TASK_Create(&pcap_drv_inst->task, "PCAP Driver Task", NANO_IP_PCAP_DrvRxTask, pcap_drv_inst);
+            ret = NANO_IP_OAL_TASK_Create(&pcap_drv_inst->task, "PCAP Driver Task", NANO_IP_PCAP_DrvRxTask, pcap_drv_inst, 0u, 0u);
             if (ret != NIP_ERR_SUCCESS)
             {
                 pcap_close(pcap_drv_inst->pcap);
@@ -470,7 +470,7 @@ static void NANO_IP_PCAP_DrvPcapHandler(u_char *user, const struct pcap_pkthdr *
         if (received_packet->size >= pkt_header->caplen)
         {
             /* Copy received data to rx packet */
-            MEMCPY(received_packet->data, pkt_data, pkt_header->caplen);
+            NANO_IP_MEMCPY(received_packet->data, pkt_data, pkt_header->caplen);
             received_packet->count = pkt_header->caplen;
 
             /* Remove packet from the available rx packet list */

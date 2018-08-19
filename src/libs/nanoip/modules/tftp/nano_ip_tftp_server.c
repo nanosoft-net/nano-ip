@@ -60,7 +60,7 @@ nano_ip_error_t NANO_IP_TFTP_SERVER_Init(nano_ip_tftp_server_t* const tftp_serve
         (callbacks != NULL))
     {
         /* 0 init */
-        MEMSET(tftp_server, 0, sizeof(nano_ip_tftp_server_t));
+        NANO_IP_MEMSET(tftp_server, 0, sizeof(nano_ip_tftp_server_t));
 
         /* Initialize instance */
         ret = NANO_IP_TFTP_Init(&tftp_server->tftp_module, listen_address, listen_port, callbacks, user_data, timeout);
@@ -80,7 +80,7 @@ nano_ip_error_t NANO_IP_TFTP_SERVER_Init(nano_ip_tftp_server_t* const tftp_serve
         }
         if (ret == NIP_ERR_SUCCESS)
         {
-            ret = NANO_IP_OAL_TASK_Create(&tftp_server->task, "TFTP Server", NANO_IP_TFTP_SERVER_Task, tftp_server);
+            ret = NANO_IP_OAL_TASK_Create(&tftp_server->task, "TFTP Server", NANO_IP_TFTP_SERVER_Task, tftp_server, NANO_IP_TFTP_SERVER_TASK_PRIORITY, NANO_IP_TFTP_SERVER_TASK_STACK_SIZE);
         }
         #endif /* NANO_IP_ENABLE_TFTP_SERVER_TASK */
     }

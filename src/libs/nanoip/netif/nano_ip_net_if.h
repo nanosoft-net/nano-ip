@@ -70,7 +70,9 @@ typedef struct _nano_ip_net_if_t
 
 
 /** \brief Initialize a network interface */
-nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* const name, const uint32_t rx_packet_count, const uint32_t rx_packet_size);
+nano_ip_error_t NANO_IP_NET_IF_Init(nano_ip_net_if_t* const net_if, const char* const name, 
+                                    const uint32_t rx_packet_count, const uint32_t rx_packet_size,
+                                    const uint8_t task_priority, const uint32_t task_stack_size);
 
 /** \brief Bring up a network interface */
 nano_ip_error_t NANO_IP_NET_IF_Up(nano_ip_net_if_t* const net_if);

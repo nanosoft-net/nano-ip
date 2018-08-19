@@ -25,15 +25,19 @@ static oal_task_t* s_task_list = NULL;
 
 
 /** \brief Create a task */
-nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, void(*task_func)(void*), void* const param)
+nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, 
+                                        void (*task_func)(void*), void* const param, 
+                                        const uint8_t priority, const uint32_t stack_size)
 {
     nano_ip_error_t ret = NIP_ERR_INVALID_ARG;
+	(void)priority;
+	(void)stack_size;
 
     /* Check parameters */
     if ((task != NULL) && (task_func != NULL))
     {
         /* Fill task handle */
-        (void)MEMSET(task, 0, sizeof(oal_task_t));
+        (void)NANO_IP_MEMSET(task, 0, sizeof(oal_task_t));
         task->name = name;
         task->task_func = task_func;
         task->param = param;

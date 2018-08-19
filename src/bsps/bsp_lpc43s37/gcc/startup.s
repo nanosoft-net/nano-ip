@@ -98,23 +98,9 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 
 _start:
 _vectors:
+
     /* Cortex M4 internal interrupts */
-    .long   _TOP_OF_STACKS_           /* Main stack pointer */
-    .long   Reset_Handler             /* Reset Handler */
-    .long   NMI_Handler               /* NMI Handler */
-    .long   HardFault_Handler         /* Hard Fault Handler */
-    .long   MPUFault_Handler          /* MPU Fault Handler */
-    .long   BusFault_Handler          /* Bus Fault Handler */
-    .long   UsageFault_Handler        /* Usage Fault Handler */
-    .long   0x00000000                /* Reserved */
-    .long   0x00000000                /* Reserved */
-    .long   0x00000000                /* Reserved */
-    .long   0x00000000                /* Reserved */
-    .long   SVCCall_Handler           /* SVCCall Handler */
-    .long   0x00000000                /* Reserved */
-    .long   0x00000000                /* Reserved */
-    .long   PendSV_Handler            /* PendSV Handler */
-    .long   Systick_Handler           /*SysTick Handler */
+	#include "cm4_internal_interrupts.s.inc"
 
     /* External Interrupts */
 	.long   DAC_Handler

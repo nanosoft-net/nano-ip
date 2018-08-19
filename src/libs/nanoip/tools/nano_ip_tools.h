@@ -39,12 +39,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_MEMSET == 1 )
 
 /** \brief Memset macro definition */
-#define MEMSET(dst, val, size) memset((dst), (val), (size))
+#define NANO_IP_MEMSET(dst, val, size) memset((dst), (val), (size))
 
 #else
 
 /** \brief Memset macro definition */
-#define MEMSET(dst, val, size) NANO_IP_memset((dst), (val), (size))
+#define NANO_IP_MEMSET(dst, val, size) NANO_IP_memset((dst), (val), (size))
 
 #endif /* USE_STD_MEMSET */
 
@@ -52,12 +52,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_MEMCPY == 1 )
 
 /** \brief Memcpy macro definition */
-#define MEMCPY(dst, src, size) memcpy((dst), (src), (size))
+#define NANO_IP_MEMCPY(dst, src, size) memcpy((dst), (src), (size))
 
 #else
 
 /** \brief Memcpy macro definition */
-#define MEMCPY(dst, src, size) NANO_IP_memcpy((dst), (src), (size))
+#define NANO_IP_MEMCPY(dst, src, size) NANO_IP_memcpy((dst), (src), (size))
 
 #endif /* USE_STD_MEMCPY */
 
@@ -65,12 +65,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_MEMCMP == 1 )
 
 /** \brief Memcmp macro definition */
-#define MEMCMP(s1, s2, size) memcmp((s1), (s2), (size))
+#define NANO_IP_MEMCMP(s1, s2, size) memcmp((s1), (s2), (size))
 
 #else
 
 /** \brief Memcmp macro definition */
-#define MEMCMP(s1, s2, size) NANO_IP_memcmp((s1), (s2), (size))
+#define NANO_IP_MEMCMP(s1, s2, size) NANO_IP_memcmp((s1), (s2), (size))
 
 #endif /* USE_STD_MEMCMP */
 
@@ -78,12 +78,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_STRNCMP == 1 )
 
 /** \brief Strncmp macro definition */
-#define STRNCMP(s1, s2, size) strncmp((s1), (s2), (size))
+#define NANO_IP_STRNCMP(s1, s2, size) strncmp((s1), (s2), (size))
 
 #else
 
 /** \brief Strncmp macro definition */
-#define STRNCMP(s1, s2, size) NANO_IP_strncmp((s1), (s2), (size))
+#define NANO_IP_STRNCMP(s1, s2, size) NANO_IP_strncmp((s1), (s2), (size))
 
 #endif /* USE_STD_STRNCMP */
 
@@ -91,12 +91,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_STRNLEN == 1 )
 
 /** \brief Strnlen macro definition */
-#define STRNLEN(s, maxlen) strnlen((s), (maxlen))
+#define NANO_IP_STRNLEN(s, maxlen) strnlen((s), (maxlen))
 
 #else
 
 /** \brief Strnlen macro definition */
-#define STRNLEN(s, maxlen) NANO_IP_strnlen((s), (maxlen))
+#define NANO_IP_STRNLEN(s, maxlen) NANO_IP_strnlen((s), (maxlen))
 
 #endif /* USE_STD_STRNLEN */
 
@@ -104,12 +104,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_STRNCAT == 1 )
 
 /** \brief Strncat macro definition */
-#define STRNCAT(dest, src, size) strncat((dest), (src), (size))
+#define NANO_IP_STRNCAT(dest, src, size) strncat((dest), (src), (size))
 
 #else
 
 /** \brief Strncat macro definition */
-#define STRNCAT(dest, src, size) NANO_IP_strncat((dest), (src), (size))
+#define NANO_IP_STRNCAT(dest, src, size) NANO_IP_strncat((dest), (src), (size))
 
 #endif /* USE_STD_STRNCAT */
 
@@ -117,12 +117,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_ATOI == 1 )
 
 /** \brief Atoi macro definition */
-#define ATOI(str) atoi((str))
+#define NANO_IP_ATOI(str) atoi((str))
 
 #else
 
 /** \brief Atoi macro definition */
-#define ATOI(str) NANO_IP_atoi((str))
+#define NANO_IP_ATOI(str) NANO_IP_atoi((str))
 
 #endif /* USE_STD_ATOI */
 
@@ -130,12 +130,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #if( USE_STD_ITOA == 1 )
 
 /** \brief Itoa macro definition */
-#define ITOA(value, str, base) itoa((value), (str), (base))
+#define NANO_IP_ITOA(value, str, base) itoa((value), (str), (base))
 
 #else
 
 /** \brief Itoa macro definition */
-#define ITOA(value, str, base) NANO_IP_itoa((value), (str), (base))
+#define NANO_IP_ITOA(value, str, base) NANO_IP_itoa((value), (str), (base))
 
 #endif /* USE_STD_ITOA */
 

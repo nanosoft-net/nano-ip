@@ -28,6 +28,12 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+/** \brief Network interface task priority and stack configuration */
+#define NETIF_TASK_PRIORITY     5u
+#define NETIF_TASK_SIZE         512u
+
+
+
 
 /** \brief Buffer sizes for the packet allocator */
 #define BIG_BUFFER_SIZE         1536u
@@ -50,24 +56,52 @@ static void* s_synopsys_emac_driver_data;
 /** \brief Initialize the operating system */
 bool NANO_IP_BSP_OSInit()
 {
-    /* Initialize UART */
-    UART_Init();
+    bool ret = true;
 
-    return true;
+    #ifdef NANO_IP_OAL_NANO_OS
+
+    const nano_os_error_t os_err = NANO_OS_Init();
+    ret = (os_err == NOS_ERR_SUCCESS);
+
+    #endif /* NANO_IP_OAL_NANO_OS */
+
+    /* Initialize UART */
+    if (ret)
+    {
+        UART_Init();
+    }
+
+    return ret;
 }
 
 /** \brief Start the operating system (should never return on success) */
 bool NANO_IP_BSP_OSStart()
 {
+    #ifdef NANO_IP_OAL_NANO_OS
+    (void)NANO_OS_Start();
+    #endif /* NANO_IP_OAL_NANO_OS */
+
+    #ifdef NANO_IP_OAL_OS_LESS
     /* Schedule tasks */
     while(true)
     {
         NANO_IP_OAL_TASK_Execute();
     }
+    #endif /* NANO_IP_OAL_OS_LESS */
 
     return false;
 }
 
+#ifdef NANO_IP_OAL_NANO_OS
+
+/** \brief Get the SYSTICK input clock frequency in Hz */
+uint32_t NANO_OS_PORT_USER_GetSystickInputClockFreq(void)
+{
+    /* 204 MHz */
+    return 204000000u;
+}
+
+#endif /* NANO_IP_OAL_NANO_OS */
 
 /** \brief Instanciate the packet allocator */
 bool NANO_IP_BSP_CreatePacketAllocator(nano_ip_net_packet_allocator_t* const packet_allocator)
@@ -81,7 +115,9 @@ bool NANO_IP_BSP_CreatePacketAllocator(nano_ip_net_packet_allocator_t* const pac
 }
 
 /** \brief Instanciate the network interface */
-bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, uint32_t* const rx_packet_count, uint32_t* const rx_packet_size)
+bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, 
+                             uint32_t* const rx_packet_count, uint32_t* const rx_packet_size,
+                             uint8_t* const task_priority, uint32_t* const task_stack_size)
 {
     const nano_ip_synopsys_emac_config_t config = {
                                                     ETH_BASE, /* Base address of SYNOPSYS EMAC register */
@@ -95,6 +131,8 @@ bool NANO_IP_BSP_CreateNetIf(nano_ip_net_if_t* const net_if, const char** name, 
     (*name) = "synopsys_emac0";
     (*rx_packet_count) = BIG_BUFFERS_COUNT - 2u;
     (*rx_packet_size) = BIG_BUFFER_SIZE;
+    (*task_priority) = NETIF_TASK_PRIORITY;
+    (*task_stack_size) = NETIF_TASK_SIZE;
     return (err == NIP_ERR_SUCCESS);
 }
 
@@ -111,6 +149,14 @@ void NANO_IP_BSP_Printf(const char* format, va_list arg_list)
 /** \brief STM32 EMAC interrupt handler */
 void ETH_IRQHandler(void)
 {
+    #ifdef NANO_IP_OAL_NANO_OS
+    NANO_OS_INTERRUPT_Enter();
+    #endif /* NANO_IP_OAL_NANO_OS */
+
     s_synopsys_emac_interrupt_handler(s_synopsys_emac_driver_data);
+
+    #ifdef NANO_IP_OAL_NANO_OS
+    NANO_OS_INTERRUPT_Exit();
+    #endif /* NANO_IP_OAL_NANO_OS */
 }
 

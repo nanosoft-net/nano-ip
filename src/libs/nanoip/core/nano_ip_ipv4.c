@@ -118,7 +118,7 @@ nano_ip_error_t NANO_IP_IPV4_InitializeHandle(nano_ip_ipv4_handle_t* const ipv4_
     if ((ipv4_handle != NULL) && (error_callback != NULL))
     {
         /* 0 init */
-        MEMSET(ipv4_handle, 0, sizeof(nano_ip_ipv4_handle_t));
+        NANO_IP_MEMSET(ipv4_handle, 0, sizeof(nano_ip_ipv4_handle_t));
 
         /* Save callback */
         ipv4_handle->user_data = user_data;
@@ -380,8 +380,8 @@ static nano_ip_error_t NANO_IP_IPV4_FinalizeSendPacket(nano_ip_ipv4_handle_t* co
     {
         /* Fill ethernet header */
         ethernet_header_t eth_header;
-        MEMCPY(eth_header.src_address, ipv4_handle->net_if->mac_address, MAC_ADDRESS_SIZE);
-        MEMCPY(eth_header.dest_address, ipv4_handle->arp_request.mac_address, MAC_ADDRESS_SIZE);
+        NANO_IP_MEMCPY(eth_header.src_address, ipv4_handle->net_if->mac_address, MAC_ADDRESS_SIZE);
+        NANO_IP_MEMCPY(eth_header.dest_address, ipv4_handle->arp_request.mac_address, MAC_ADDRESS_SIZE);
         eth_header.ether_type = IP_PROTOCOL;
 
         /* Send packet */

@@ -42,13 +42,13 @@ TARGET_DEPENDENCIES=
 TARGET_INC_DIRS=
 
 # Target specific lib directories
-TARGET_LIB_DIRS=-L$(TOOLCHAIN_PATH)/arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard -L$(TOOLCHAIN_PATH)/lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard
+TARGET_LIB_DIRS=-L$(TOOLCHAIN_PATH)/arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard -L$(TOOLCHAIN_PATH)/lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard
 
 # Target specific libraries
 TARGET_LIBS=-lgcc -lc -lnosys
 
 # Target implementation for the project defines
-TARGET_PROJECT_DEFINES=$(foreach PROJECT_DEFINE, $(PROJECT_DEFINES), -D$(PROJECT_DEFINE))
+TARGET_PROJECT_DEFINES=$(foreach PROJECT_DEFINE, $(PROJECT_DEFINES), -D$(PROJECT_DEFINE)) -DNANO_IP_OAL_OS_LESS
 
 
 # Optimisation level

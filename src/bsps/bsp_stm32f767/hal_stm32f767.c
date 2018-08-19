@@ -18,16 +18,21 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "nano_ip_hal.h"
-#include "systick.h"
 #include "stm32f767xx.h"
+
+#ifdef NANO_IP_OAL_OS_LESS
+#include "systick.h"
+#endif /* NANO_IP_OAL_OS_LESS */
 
 /** \brief Initialize the hardware abstraction layer */
 nano_ip_error_t NANO_IP_HAL_Init(void)
 {
     nano_ip_error_t ret = NIP_ERR_SUCCESS;
 
+    #ifdef NANO_IP_OAL_OS_LESS
     /* Initialize the systick for the millisecond tick counter */
     SYSTICK_Init();
+    #endif /* NANO_IP_OAL_OS_LESS */
 
     /* Turn on power on GPIO */
     RCC->AHB1ENR |= (0x7FFu << 0u);
@@ -39,11 +44,13 @@ nano_ip_error_t NANO_IP_HAL_Init(void)
     return ret;
 }
 
+#ifdef NANO_IP_OAL_OS_LESS
 /** \brief Get the current value of the millisecond tick counter */
 uint32_t NANO_IP_HAL_GetMsCounter(void)
 {
     return SYSTICK_GetCounter();
 }
+#endif /* NANO_IP_OAL_OS_LESS */
 
 /** \brief Initialize the clocks of a network interface */
 nano_ip_error_t NANO_IP_HAL_InitializeNetIfClock(nano_ip_net_if_t* const net_if)

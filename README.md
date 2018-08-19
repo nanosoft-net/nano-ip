@@ -14,7 +14,7 @@ Its main characteristics are:
   * TFTP (server and client)
 * User defined protocols on top of any of the previous protocols can be easily added to the stack
 * Support of BSD like socket interface
-* Operating System Abstraction Layer (OAL) to ease port on different Operating Systems (can be use without any Operating System)
+* Operating System Abstraction Layer (OAL) to ease port on different Operating Systems (can be used without any Operating System)
 * Support of localhost network interface
 * Simple API to add a new network interface implementation
 * Highly portable code (100% written in C language, without endianness issues)
@@ -24,9 +24,10 @@ Its main characteristics are:
 
 Nano IP OAL has been ported to the following operating systems:
 
-* OS less
+* OS less (no Operating System)
 * Windows
 * Linux
+* Nano-OS (https://github.com/nanosoft-net/nano-os)
 
 Nano IP network interfaces implementations:
 
@@ -156,7 +157,7 @@ The demo applications have been tested on the following boards:
 
 using the following compilers:
 
-* GCC 7.2 for ARM Cortex-M compiler (GNU ARM Embedded Toolchain - https://launchpad.net/gcc-arm-embedded)
+* GCC 7.3 for ARM Cortex-M compiler (GNU ARM Embedded Toolchain - https://launchpad.net/gcc-arm-embedded)
 * MinGW 7.1 for Windows (MinGW - http://www.mingw.org/)
 
 ### Demos

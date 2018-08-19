@@ -30,7 +30,8 @@ PROJECT_NAME := lpc_emac_netif
 BUILD_TYPE := LIB
 
 # Projects that need to be build before the project or containing necessary include paths
-PROJECT_DEPENDENCIES = libs/nanoip
+PROJECT_DEPENDENCIES = libs/nanoip \
+                       $(TARGET_DEPENDENCIES)
                        
 			  
 # Including common makefile definitions

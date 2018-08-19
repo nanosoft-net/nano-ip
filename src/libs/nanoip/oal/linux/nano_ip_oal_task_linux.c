@@ -20,10 +20,14 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 #include "nano_ip_oal_task.h"
 
 /** \brief Create a task */
-nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, void(*task_func)(void*), void* const param)
+nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, 
+                                        void (*task_func)(void*), void* const param, 
+                                        const uint8_t priority, const uint32_t stack_size)
 {
     nano_ip_error_t ret = NIP_ERR_INVALID_ARG;
     (void)name;
+	(void)priority;
+	(void)stack_size;
 
     /* Check parameters */
     if ((task != NULL) && (task_func != NULL))

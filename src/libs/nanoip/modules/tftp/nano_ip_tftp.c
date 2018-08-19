@@ -56,14 +56,14 @@ nano_ip_error_t NANO_IP_TFTP_Init(nano_ip_tftp_t* const tftp_module, const uint3
         ((timeout % TFTP_MIN_TIMEOUT_VALUE) == 0))
     {
         /* 0 init */
-        MEMSET(tftp_module, 0, sizeof(nano_ip_tftp_t));
+        NANO_IP_MEMSET(tftp_module, 0, sizeof(nano_ip_tftp_t));
 
         /* Initialize instance */
         tftp_module->listen_address = listen_address;
         tftp_module->listen_port = listen_port;
         tftp_module->user_data = user_data;
         tftp_module->timeout = timeout;
-        MEMCPY(&tftp_module->callbacks, callbacks, sizeof(nano_ip_tftp_callbacks_t));
+        NANO_IP_MEMCPY(&tftp_module->callbacks, callbacks, sizeof(nano_ip_tftp_callbacks_t));
 
         /* Create timer */
         ret = NANO_IP_OAL_TIMER_Create(&tftp_module->timer, NANO_IP_TFTP_TimerCallback, tftp_module);
@@ -135,7 +135,7 @@ nano_ip_error_t NANO_IP_TFTP_SendReadWriteRequest(nano_ip_tftp_t* const tftp_mod
             NANO_IP_PACKET_Write16bits(packet, opcode);
 
             /* Filename */
-            NANO_IP_PACKET_WriteBuffer(packet, filename, NANO_IP_CAST(uint16_t, STRNLEN(filename, TFTP_MAX_FILENAME_SIZE)));
+            NANO_IP_PACKET_WriteBuffer(packet, filename, NANO_IP_CAST(uint16_t, NANO_IP_STRNLEN(filename, TFTP_MAX_FILENAME_SIZE)));
             NANO_IP_PACKET_Write8bits(packet, 0x00u);
 
             /* Mode */
@@ -207,7 +207,7 @@ void NANO_IP_TFTP_ProcessReadWriteRequest(nano_ip_tftp_t* const tftp_module, nan
                 if (packet->count != 0)
                 {
                     /* Check mode */
-                    if (STRNCMP(TFTP_TRANSFER_MODE, mode, packet->count) == 0)
+                    if (NANO_IP_STRNCMP(TFTP_TRANSFER_MODE, mode, packet->count) == 0)
                     {
                         /* Start timer */
                         (void)NANO_IP_OAL_TIMER_Start(&tftp_module->timer, TFTP_MIN_TIMEOUT_VALUE);

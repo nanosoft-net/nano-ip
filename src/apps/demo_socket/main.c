@@ -309,7 +309,7 @@ static void DEMO_UDP_EchoRxTask(void* param)
         bool data_ready = false;
         uint32_t poll_count = 0u;
         nano_ip_socket_poll_data_t poll_data;
-        MEMSET(&poll_data, 0, sizeof(poll_data));
+        NANO_IP_MEMSET(&poll_data, 0, sizeof(poll_data));
         poll_data.socket_id = s_udp_socket;
         poll_data.req_events = NIPSOCK_POLLIN | NIPSOCK_POLLERR;
         
@@ -386,7 +386,7 @@ static bool DEMO_TCP_EchoData(const uint32_t socket_id)
     bool data_ready = false;
     uint32_t poll_count = 0u;
     nano_ip_socket_poll_data_t poll_data;
-    MEMSET(&poll_data, 0, sizeof(poll_data));
+    NANO_IP_MEMSET(&poll_data, 0, sizeof(poll_data));
     poll_data.socket_id = socket_id;
     poll_data.req_events = NIPSOCK_POLLIN | NIPSOCK_POLLERR;
     
@@ -494,7 +494,7 @@ static void DEMO_TCP_CLIENT_EchoTask(void* param)
                 /* Poll on socket to wait for end of connect data */
                 uint32_t poll_count = 0u;
                 nano_ip_socket_poll_data_t poll_data;
-                MEMSET(&poll_data, 0, sizeof(poll_data));
+                NANO_IP_MEMSET(&poll_data, 0, sizeof(poll_data));
                 poll_data.socket_id = s_tcp_client_socket;
                 poll_data.req_events = NIPSOCK_POLLOUT | NIPSOCK_POLLERR;
                 

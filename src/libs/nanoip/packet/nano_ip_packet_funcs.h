@@ -115,7 +115,7 @@ static inline uint32_t NANO_IP_PACKET_Read32bits(nano_ip_net_packet_t* const pac
 /** \brief Read buffer from a packet */
 static inline void NANO_IP_PACKET_ReadBuffer(nano_ip_net_packet_t* const packet, void* const buffer, const uint16_t size)
 {
-    (void)MEMCPY(buffer, packet->current, size);
+    (void)NANO_IP_MEMCPY(buffer, packet->current, size);
     packet->current += size;
     packet->count -= size;
 }
@@ -179,7 +179,7 @@ static inline void NANO_IP_PACKET_Write32bits(nano_ip_net_packet_t* const packet
 /** \brief Write buffer to a packet */
 static inline void NANO_IP_PACKET_WriteBufferNoCount(nano_ip_net_packet_t* const packet, const void* const buffer, const uint16_t size)
 {
-    (void)MEMCPY(packet->current, buffer, size);
+    (void)NANO_IP_MEMCPY(packet->current, buffer, size);
     packet->current += size;
 }
 
@@ -200,7 +200,7 @@ static inline void NANO_IP_PACKET_WriteSkipBytes(nano_ip_net_packet_t* const pac
 /** \brief Write 0s to a packet */
 static inline void NANO_IP_PACKET_WriteZeros(nano_ip_net_packet_t* const packet, const uint16_t size)
 {
-    (void)MEMSET(packet->current, 0, size);
+    (void)NANO_IP_MEMSET(packet->current, 0, size);
     NANO_IP_PACKET_WriteSkipBytes(packet, size);
 }
 

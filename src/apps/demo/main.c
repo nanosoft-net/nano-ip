@@ -26,7 +26,7 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 //#define USE_DHCP
 
 /** \brief IP address when DHCP is not enabled */
-#define DEMO_PING_IP_ADDRESS        "192.168.137.70"
+#define DEMO_IP_ADDRESS        "192.168.0.70"
 
 /** \brief MAC address */
 static const uint8_t MAC_ADDRESS[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
@@ -35,13 +35,19 @@ static const uint8_t MAC_ADDRESS[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
 /************************** UDP demo options ***************************/
 
 /** \brief Enable or disable the UDP echo demo */
-#define UDP_ECHO_DEMO_ENABLED       1u
+#define UDP_ECHO_DEMO_ENABLED               1u
 
 /** \brief Enable or disable the UDP echo task */
-#define UDP_ECHO_DEMO_TASK_ENABLED  0u
+#define UDP_ECHO_DEMO_TASK_ENABLED          0u
+
+/** \brief Priority of the UDP echo task */
+#define UDP_ECHO_TASK_PRIORITY              3u
+
+/** \brief Size in bytes of the UDP echo task */
+#define UDP_ECHO_TASK_STACK_SIZE            512u
 
 /** \brief UDP listen port */
-#define UDP_ECHO_DEMO_LISTEN_PORT   54321u
+#define UDP_ECHO_DEMO_LISTEN_PORT           54321u
 
 
 /************************** TCP server demo options ***************************/
@@ -51,6 +57,12 @@ static const uint8_t MAC_ADDRESS[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
 
 /** \brief Enable or disable the TCP server echo task */
 #define TCP_SERVER_ECHO_DEMO_TASK_ENABLED       0u
+
+/** \brief Priority of the TCP server echo task */
+#define TCP_SERVER_ECHO_TASK_PRIORITY           4u
+
+/** \brief Size in bytes of the TCP server echo task */
+#define TCP_SERVER_ECHO_TASK_STACK_SIZE         512u
 
 /** \brief TCP listen port */
 #define TCP_SERVER_ECHO_DEMO_LISTEN_PORT        8765u
@@ -67,8 +79,14 @@ static const uint8_t MAC_ADDRESS[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
 /** \brief Enable or disable the TCP client echo task */
 #define TCP_CLIENT_ECHO_DEMO_TASK_ENABLED       0u
 
+/** \brief Priority of the TCP client echo task */
+#define TCP_CLIENT_ECHO_TASK_PRIORITY           4u
+
+/** \brief Size in bytes of the TCP client echo task */
+#define TCP_CLIENT_ECHO_TASK_STACK_SIZE         512u
+
 /** \brief TCP client destination address */
-#define TCP_CLIENT_ECHO_DEMO_DEST_ADDRESS      "192.168.137.106"
+#define TCP_CLIENT_ECHO_DEMO_DEST_ADDRESS       "192.168.137.106"
 
 /** \brief TCP client destination port */
 #define TCP_CLIENT_ECHO_DEMO_DEST_PORT          4567u
@@ -224,6 +242,8 @@ int main(void)
     const char* net_if_name = NULL;
     uint32_t rx_packet_size = 0u;
     uint32_t rx_packet_count = 0u;
+    uint8_t task_priority = 0u;
+    uint32_t task_stack_size = 0u;
 
     /* Initialize operating system */
     ret = NANO_IP_BSP_OSInit();
@@ -234,7 +254,7 @@ int main(void)
         if (ret)
         {
             /* Create network interface */
-            ret = NANO_IP_BSP_CreateNetIf(&s_net_if, &net_if_name, &rx_packet_count, &rx_packet_size);
+            ret = NANO_IP_BSP_CreateNetIf(&s_net_if, &net_if_name, &rx_packet_count, &rx_packet_size, &task_priority, &task_stack_size);
         }
     }
     if (ret)
@@ -244,7 +264,7 @@ int main(void)
         if (err == NIP_ERR_SUCCESS)
         {
             /* Add the network interface */
-            err = NANO_IP_NET_IFACES_AddNetInterface(&s_net_if, net_if_name, rx_packet_count, rx_packet_size);
+            err = NANO_IP_NET_IFACES_AddNetInterface(&s_net_if, net_if_name, rx_packet_count, rx_packet_size, task_priority, task_stack_size);
             if (err == NIP_ERR_SUCCESS)
             {
                 /* Start the IP stack */
@@ -265,7 +285,7 @@ int main(void)
             /* Static IP address configuration */
             ipv4_address_t ipv4_address;
             ipv4_address_t ipv4_netmask;
-            ipv4_address = NANO_IP_inet_ntoa(DEMO_PING_IP_ADDRESS);
+            ipv4_address = NANO_IP_inet_ntoa(DEMO_IP_ADDRESS);
             ipv4_netmask = NANO_IP_inet_ntoa("255.255.255.0");
             err = NANO_IP_NET_IFACES_SetIpv4Address(s_net_if.id, ipv4_address, ipv4_netmask, 0);
 
@@ -317,7 +337,7 @@ int main(void)
                 if (err == NIP_ERR_SUCCESS)
                 {
                     /* Create UDP task */
-                    err = NANO_IP_OAL_TASK_Create(&s_udp_task_handle, "UDP demo task", DEMO_UDP_EchoRxTask, &s_udp_handle);
+                    err = NANO_IP_OAL_TASK_Create(&s_udp_task_handle, "UDP demo task", DEMO_UDP_EchoRxTask, &s_udp_handle, UDP_ECHO_TASK_PRIORITY, UDP_ECHO_TASK_STACK_SIZE);
                 }
             }
         }
@@ -366,7 +386,7 @@ int main(void)
                 if (err == NIP_ERR_SUCCESS)
                 {
                     /* Create UDP task */
-                    err = NANO_IP_OAL_TASK_Create(&s_udp_task_handle, "UDP demo task", DEMO_UDP_EchoRxTask, &s_udp_handle);
+                    err = NANO_IP_OAL_TASK_Create(&s_udp_task_handle, "UDP demo task", DEMO_UDP_EchoRxTask, &s_udp_handle, TCP_SERVER_ECHO_TASK_PRIORITY, TCP_SERVER_ECHO_TASK_STACK_SIZE);
                 }
             }
         }
@@ -410,7 +430,7 @@ int main(void)
                 if (err == NIP_ERR_SUCCESS)
                 {
                     /* Create UDP task */
-                    err = NANO_IP_OAL_TASK_Create(&s_udp_task_handle, "UDP demo task", DEMO_UDP_EchoRxTask, &s_udp_handle);
+                    err = NANO_IP_OAL_TASK_Create(&s_udp_task_handle, "UDP demo task", DEMO_UDP_EchoRxTask, &s_udp_handle, TCP_CLIENT_ECHO_TASK_PRIORITY, TCP_CLIENT_ECHO_TASK_STACK_SIZE);
                 }
             }
         }
@@ -448,7 +468,7 @@ static nano_ip_error_t DEMO_UDP_SendMessage(nano_ip_udp_handle_t* const udp_hand
     if (ret == NIP_ERR_SUCCESS)
     {
         /* Copy data */
-        (void)MEMCPY(packet->current, data, size);
+        (void)NANO_IP_MEMCPY(packet->current, data, size);
         packet->current += size;
         packet->count = size;
 
@@ -609,7 +629,7 @@ static nano_ip_error_t DEMO_TCP_SendMessage(nano_ip_tcp_handle_t* const tcp_hand
     if (ret == NIP_ERR_SUCCESS)
     {
         /* Copy data */
-        (void)MEMCPY(packet->current, data, size);
+        (void)NANO_IP_MEMCPY(packet->current, data, size);
         packet->current += size;
         packet->count = size;
 

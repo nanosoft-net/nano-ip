@@ -31,7 +31,9 @@ extern "C"
 
 
 /** \brief Create a task */
-nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, void (*task_func)(void*), void* const param);
+nano_ip_error_t NANO_IP_OAL_TASK_Create(oal_task_t* const task, const char* name, 
+                                        void (*task_func)(void*), void* const param, 
+                                        const uint8_t priority, const uint32_t stack_size);
 
 
 /** \brief Execute the registered tasks */

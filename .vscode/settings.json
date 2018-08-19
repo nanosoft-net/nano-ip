@@ -1,6 +1,7 @@
 {
-    "cortex-debug.JLinkGDBServerPath": "C:\\Program Files (x86)\\SEGGER\\JLink_V632c\\JLinkGDBServerCL.exe",
-    "cortex-debug.armToolchainPath": "C:\\gcc_arm_cortex_m_7.2\\bin",
+    "cortex-debug.JLinkGDBServerPath": "C:\\Program Files (x86)\\SEGGER\\JLink_V618c\\JLinkGDBServerCL.exe",
+//    "cortex-debug.JLinkGDBServerPath": "C:\\Program Files (x86)\\SEGGER\\JLink_V632c\\JLinkGDBServerCL.exe",
+    "cortex-debug.armToolchainPath": "C:\\gcc_arm_cortex_m_7.3\\bin",
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -9,7 +10,8 @@
         "**/.DS_Store": true,
         "**/oal/linux" : true,
         "**/oal/os_less" : true,
-        "**/oal/windows" : false
+        "**/oal/windows" : true,
+        "**/oal/nano-os" : false
     },
     "files.associations": {
         "stdio.h": "c",

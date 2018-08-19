@@ -36,7 +36,9 @@ nano_ip_error_t NANO_IP_NET_IFACES_Init(void)
 }
 
 /** \brief Add a network interface */
-nano_ip_error_t NANO_IP_NET_IFACES_AddNetInterface(nano_ip_net_if_t* const net_iface, const char* const name, const uint32_t rx_packet_count, const uint32_t rx_packet_size)
+nano_ip_error_t NANO_IP_NET_IFACES_AddNetInterface(nano_ip_net_if_t* const net_iface, const char* const name, 
+                                                   const uint32_t rx_packet_count, const uint32_t rx_packet_size,
+                                                   const uint8_t task_priority, const uint32_t task_stack_size)
 {
     nano_ip_error_t ret = NIP_ERR_INVALID_ARG;
 
@@ -45,7 +47,7 @@ nano_ip_error_t NANO_IP_NET_IFACES_AddNetInterface(nano_ip_net_if_t* const net_i
         (name != NULL))
     {
         /* Initialize the network interface */
-        ret = NANO_IP_NET_IF_Init(net_iface, name, rx_packet_count, rx_packet_size);
+        ret = NANO_IP_NET_IF_Init(net_iface, name, rx_packet_count, rx_packet_size, task_priority, task_stack_size);
         if (ret == NIP_ERR_SUCCESS)
         {
             nano_ip_net_ifaces_module_data_t* const net_ifaces_module = &g_nano_ip.net_ifaces_module;

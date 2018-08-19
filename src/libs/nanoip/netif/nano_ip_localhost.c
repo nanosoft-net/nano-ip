@@ -71,7 +71,7 @@ nano_ip_error_t NANO_IP_LOCALHOST_Init(void)
     
     /* Add interface to the stack */
     g_nano_ip.localhost_module.net_if.driver = &localhost_driver;
-    ret = NANO_IP_NET_IFACES_AddNetInterface(&g_nano_ip.localhost_module.net_if, "localhost", 0, 0);
+    ret = NANO_IP_NET_IFACES_AddNetInterface(&g_nano_ip.localhost_module.net_if, "localhost", 0, 0, NANO_IP_LOCALHOST_TASK_PRIORITY, NANO_IP_LOCALHOST_TASK_STACK_SIZE);
 
     return ret;
 }
@@ -91,7 +91,7 @@ static nano_ip_error_t NANO_IP_LOCALHOST_DrvInit(void* const user_data, net_driv
         if (ret == NIP_ERR_SUCCESS)
         {
             /* Save the callbacks */
-            (void)MEMCPY(&localhost_drv_inst->callbacks, callbacks, sizeof(net_driver_callbacks_t));
+            (void)NANO_IP_MEMCPY(&localhost_drv_inst->callbacks, callbacks, sizeof(net_driver_callbacks_t));
         }
     }
 

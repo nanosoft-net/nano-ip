@@ -69,7 +69,7 @@ nano_ip_error_t NANO_IP_DHCP_CLIENT_Init(nano_ip_dhcp_client_t* const dhcp_clien
         (timeout != 0u))
     {
         /* 0 init */
-        MEMSET(dhcp_client, 0, sizeof(nano_ip_dhcp_client_t));
+        NANO_IP_MEMSET(dhcp_client, 0, sizeof(nano_ip_dhcp_client_t));
 
         /* Initialize instance */
         dhcp_client->net_if = net_if;
@@ -348,7 +348,7 @@ static void NANO_IP_DHCP_CLIENT_ProcessOfferMessage(nano_ip_dhcp_client_t* const
                 /* Request type */
                 if (option_size == DHCP_REQUEST_TYPE_OPTION_SIZE)
                 {
-                    (void)MEMCPY(&msg_type, option_data, DHCP_REQUEST_TYPE_OPTION_SIZE);
+                    (void)NANO_IP_MEMCPY(&msg_type, option_data, DHCP_REQUEST_TYPE_OPTION_SIZE);
                 }
                 break;
 
@@ -450,7 +450,7 @@ static void NANO_IP_DHCP_CLIENT_ProcessAckMessage(nano_ip_dhcp_client_t* const d
                 /* Request type */
                 if (option_size == DHCP_REQUEST_TYPE_OPTION_SIZE)
                 {
-                    (void)MEMCPY(&msg_type, option_data, DHCP_REQUEST_TYPE_OPTION_SIZE);
+                    (void)NANO_IP_MEMCPY(&msg_type, option_data, DHCP_REQUEST_TYPE_OPTION_SIZE);
                 }
                 break;
 
@@ -615,7 +615,7 @@ static bool NANO_IP_DHCP_CLIENT_UdpEvent(void* const user_data, const nano_ip_ud
                 if (ret)
                 {
                     /* Check if this message is for us */
-                    if ((MEMCMP(dhcp_msg.chaddr, dhcp_client->net_if->mac_address, MAC_ADDRESS_SIZE) == 0) &&
+                    if ((NANO_IP_MEMCMP(dhcp_msg.chaddr, dhcp_client->net_if->mac_address, MAC_ADDRESS_SIZE) == 0) &&
                     (dhcp_msg.transaction_id == dhcp_client->transaction_id) &&
                     (dhcp_msg.op == DHCP_BOOT_REPLY) )
                     {

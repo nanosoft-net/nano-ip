@@ -1,0 +1,3 @@
+[submodule "3rdparty/nano-os"]
+	path = 3rdparty/nano-os
+	url = https://github.com/nanosoft-net/nano-os.git

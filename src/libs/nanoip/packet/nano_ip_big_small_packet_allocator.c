@@ -44,8 +44,8 @@ nano_ip_error_t NANO_IP_BIG_SMALL_PACKET_ALLOCATOR_Init(nano_ip_net_packet_alloc
         uint16_t i = 0;
 
         /* 0 init */
-        MEMSET(allocator, 0, sizeof(nano_ip_net_packet_allocator_t));
-        MEMSET(&allocator_data->internal_data, 0, sizeof(big_small_packet_allocator_internal_data_t));
+        NANO_IP_MEMSET(allocator, 0, sizeof(nano_ip_net_packet_allocator_t));
+        NANO_IP_MEMSET(&allocator_data->internal_data, 0, sizeof(big_small_packet_allocator_internal_data_t));
 
         /* Initialize allocator */
         allocator->allocate = NANO_IP_BIG_SMALL_PACKET_ALLOCATOR_Allocate;

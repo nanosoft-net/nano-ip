@@ -39,7 +39,7 @@ nano_ip_error_t NANO_IP_Init(const nano_ip_net_packet_allocator_t* const packet_
     if ((packet_allocator != NULL))
     {
         /* 0 init */
-        MEMSET(&g_nano_ip, 0, sizeof(nano_ip_t));
+        NANO_IP_MEMSET(&g_nano_ip, 0, sizeof(nano_ip_t));
 
         /* Save packet allocator */
         g_nano_ip.packet_allocator = packet_allocator;

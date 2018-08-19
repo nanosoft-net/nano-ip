@@ -19,7 +19,7 @@
         },
         {
             "cwd": "${workspaceRoot}",
-            "executable": "./build/apps/demo_socket/bin/arm-gcc-os-less-lpc43s37/demo_socket.elf",
+            "executable": "./build/apps/demo/bin/arm-gcc-nano-os-lpc43s37/demo.elf",
             "name": "J-Link Debug LPC43S37",
             "request": "launch",
             "type": "cortex-debug",
