@@ -76,6 +76,9 @@ nano_ip_error_t NANO_IP_NET_IFACES_SetMacAddress(const uint8_t iface, const uint
 /** \brief Set the IPv4 address of a network interface */
 nano_ip_error_t NANO_IP_NET_IFACES_SetIpv4Address(const uint8_t iface, const ipv4_address_t address, const ipv4_address_t netmask, const ipv4_address_t gateway_address);
 
+/** \brief Get informations about a network interface */
+nano_ip_error_t NANO_IP_NET_IFACES_GetInfo(const uint8_t iface, const char** const name, ipv4_address_t* const address, ipv4_address_t* const netmask, ipv4_address_t* const gateway_address, uint8_t* const mac_address);
+
 
 #ifdef __cplusplus
 }

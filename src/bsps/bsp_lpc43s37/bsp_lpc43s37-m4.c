@@ -27,6 +27,7 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef NANO_IP_OAL_NANO_OS
 #include "nano_os_api.h"
+#include "nano_os_nettools.h"
 #endif /* NANO_IP_OAL_NANO_OS */
 
 
@@ -65,6 +66,10 @@ bool NANO_IP_BSP_OSInit()
 
     const nano_os_error_t os_err = NANO_OS_Init();
     ret = (os_err == NOS_ERR_SUCCESS);
+    if (ret)
+    {
+        (void)NANO_OS_NETTOOLS_Init();
+    }
 
     #endif /* NANO_IP_OAL_NANO_OS */
 

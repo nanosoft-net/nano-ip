@@ -41,7 +41,7 @@ TARGET_BSP=bsps/bsp_lpc1788
 TARGET_NETIF=libs/net_if/lpc_emac_netif
 
 # Target lib dependencies
-TARGET_DEPENDENCIES=3rdparty/nano-os
+TARGET_DEPENDENCIES=3rdparty/nano-os libs/features/nano-os-nettools
 
 # Target specific include directories
 TARGET_INC_DIRS=

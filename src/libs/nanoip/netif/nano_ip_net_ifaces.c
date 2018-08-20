@@ -223,6 +223,48 @@ nano_ip_error_t NANO_IP_NET_IFACES_SetIpv4Address(const uint8_t iface, const ipv
     return ret;
 }
 
+/** \brief Get informations about a network interface */
+nano_ip_error_t NANO_IP_NET_IFACES_GetInfo(const uint8_t iface, const char** const name, ipv4_address_t* const address, ipv4_address_t* const netmask, ipv4_address_t* const gateway_address, uint8_t* const mac_address)
+{
+    nano_ip_error_t ret = NIP_ERR_INVALID_ARG;
+    nano_ip_net_ifaces_module_data_t* const net_ifaces_module = &g_nano_ip.net_ifaces_module;
+
+    (void)NANO_IP_OAL_MUTEX_Lock(&g_nano_ip.mutex);
+
+    /* Check parameters */
+    if ((iface < net_ifaces_module->net_ifaces_count) &&
+        (name != NULL) &&
+        (address != NULL) && 
+        (netmask != NULL) &&
+        (gateway_address != NULL) &&
+        (mac_address != NULL))
+    {
+        nano_ip_net_if_t* net_if;
+
+        /* Look for interface */
+        net_if = NANO_IP_NET_IF_LookForNetIf(iface);
+        if (net_if != NULL)
+        {
+            /* Copy information */
+            (*name) = net_if->name;
+            (*address) = net_if->ipv4_address;
+            (*netmask) = net_if->ipv4_netmask;
+            (*gateway_address) = 0u;
+            (void)MEMCPY(mac_address, net_if->mac_address, MAC_ADDRESS_SIZE); 
+
+            ret = NIP_ERR_SUCCESS;
+        }
+        else
+        {
+            ret = NIP_ERR_NETIF_NOT_FOUND;
+        }
+    }
+
+    (void)NANO_IP_OAL_MUTEX_Unlock(&g_nano_ip.mutex);
+
+    return ret;
+}
+
 /** \brief Look for a network interface */
 static nano_ip_net_if_t* NANO_IP_NET_IF_LookForNetIf(const uint8_t iface)
 {
