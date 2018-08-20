@@ -17,7 +17,6 @@ You should have received a copy of the GNU Lesser General Public License
 along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef UART_H
 #define UART_H
 

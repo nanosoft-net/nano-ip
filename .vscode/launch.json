@@ -43,6 +43,18 @@
             "serialNumber": null
         },
         {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/apps/demo/bin/arm-gcc-os-less-lpc1768/demo.elf",
+            "name": "J-Link Debug LPC1768",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "LPC1768",
+            "interface": "jtag",
+            "ipAddress": null,
+            "serialNumber": null
+        },
+        {
             "name": "MinGW Windows",
             "type": "cppdbg",
             "request": "launch",

@@ -18,22 +18,16 @@ along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef UART_H
-#define UART_H
+/** \brief Called when a non construct pure virtual method is called */
+extern "C" void __cxa_pure_virtual()
+{
+    while(true)
+    {}
+}
 
 
-#include "nano_os_types.h"
-
-
-
-/** \brief Initialize the UART driver */
-void UART_Init(void);
-
-/** \brief Send data over the UART */
-void UART_Send(const uint8_t* data, uint32_t data_len);
-
-/** \brief Receive data on the UART */
-void UART_Receive(uint8_t* data, uint32_t data_len);
-
-
-#endif /* UART_H */
+/** \brief Delete operator override (not used as it deletes static objects only) */
+void operator delete(void* ptr, unsigned int size) __attribute__(( weak ));
+void operator delete(void* ptr, unsigned int size)
+{
+}

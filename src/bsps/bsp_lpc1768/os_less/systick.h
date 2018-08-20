@@ -17,23 +17,19 @@ You should have received a copy of the GNU Lesser General Public License
 along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef UART_H
-#define UART_H
-
-
-#include "nano_os_types.h"
+#ifndef SYSTICK_H
+#define SYSTICK_H
 
 
-
-/** \brief Initialize the UART driver */
-void UART_Init(void);
-
-/** \brief Send data over the UART */
-void UART_Send(const uint8_t* data, uint32_t data_len);
-
-/** \brief Receive data on the UART */
-void UART_Receive(uint8_t* data, uint32_t data_len);
+#include "nano_ip_types.h"
 
 
-#endif /* UART_H */
+
+/** \brief Initialize and start the system tick */
+void SYSTICK_Init(void);
+
+/** \brief Retrieve the current systick counter value */
+uint32_t SYSTICK_GetCounter(void);
+
+
+#endif /* SYSTICK_H */

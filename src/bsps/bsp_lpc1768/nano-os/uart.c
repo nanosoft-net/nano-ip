@@ -17,13 +17,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with Nano-IP.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "uart.h"
 
 #include "nano_os_api.h"
 #include "nano_os_tools.h"
 
-#include "lpc177x_8x.h"
+#include "LPC17xx.h"
 
 
 
@@ -89,25 +88,26 @@ static bool UART_RingBufferIsFull(const ring_buffer_t* const ring_buffer);
 void UART_Init(void)
 {
 
-    /* Enable IOs for Rx and Tx lines (P02 and P03, IO function 1)*/
-    LPC_IOCON->P0_2 = 1u;
-    LPC_IOCON->P0_3 = 1u;
+    /* Enable IOs for Rx and Tx lines (P02 and P03, FUNC1)*/
+    LPC_PINCON->PINSEL0 &= ~((0x03 << 4u) | (0x03 << 6u));
+    LPC_PINCON->PINSEL0 |= ((0x01 << 4u) | (0x01 << 6u));
 
-    /* Turn on power and clock for the UART => UARTCLK = 60MHz */
+    /* Turn on power and clock for the UART => UARTCLK = APB1 = 37.5 MHz */
     LPC_SC->PCONP |= (1u << 3u);
 
     /* Disable receive and transmit */
     LPC_UART0->FCR = 0x00u;
     LPC_UART0->TER = 0x00u;
 
-    /* Configure UART baudrate = PCLK/(16*(256*DLM + DLL)*(1+Div/Mul)) => 115131bps */
+    /* Configure UART baudrate = PCLK/(16*(256*DLM + DLL)*(1+Div/Mul)) => 115384bps */
     LPC_UART0->LCR = (1u << 7u);
     LPC_UART0->DLM = 0x00u;
-    LPC_UART0->DLL = 0x13u;
-    LPC_UART0->FDR = 0x05u + (0x07u << 4u); /* Div = 5, Mul = 7 */
+    LPC_UART0->DLL = 0x32u;
+    LPC_UART0->FDR = 0x01u + (0x0Cu << 4u); /* Div = 1, Mul = 12 */
 
     /* Configure transfer : 8bits, 1stop bit, no parity, no flow control */
-    LPC_UART0->LCR = 0x03u;
+    LPC_UART0->LCR = (3u << 0u);
+
 
     /* Enable Rx interrupt */
     LPC_UART0->IER = (1u << 0u) ;

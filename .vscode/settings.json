@@ -21,6 +21,8 @@
         "nano_ip.h": "c",
         "array": "c",
         "string_view": "c",
-        "uart.h": "c"
+        "uart.h": "c",
+        "systick.h": "c",
+        "lpc17xx.h": "c"
     }
 }

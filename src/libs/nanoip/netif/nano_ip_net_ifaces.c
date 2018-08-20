@@ -250,7 +250,7 @@ nano_ip_error_t NANO_IP_NET_IFACES_GetInfo(const uint8_t iface, const char** con
             (*address) = net_if->ipv4_address;
             (*netmask) = net_if->ipv4_netmask;
             (*gateway_address) = 0u;
-            (void)MEMCPY(mac_address, net_if->mac_address, MAC_ADDRESS_SIZE); 
+            (void)NANO_IP_MEMCPY(mac_address, net_if->mac_address, MAC_ADDRESS_SIZE); 
 
             ret = NIP_ERR_SUCCESS;
         }

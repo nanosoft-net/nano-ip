@@ -121,6 +121,45 @@
             "problemMatcher": []
         },
         {
+            "label": "make demo LPC1768 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo",
+                "all+",
+                "TARGET=arm-gcc-os-less-lpc1768"
+            ],
+            "group": "build",
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):([0-9]+):([0-9]+): (warning|error): (.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clean demo LPC1768 OS less",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build/apps/demo",
+                "clean+",
+                "TARGET=arm-gcc-os-less-lpc1768"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
             "label": "make demo Windows",
             "type": "shell",
             "command": "make",
